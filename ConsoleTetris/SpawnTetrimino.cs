@@ -7,6 +7,7 @@
         public bool IsActive { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
+        // Ved gemning og placering af tetrimino kræves det at konsol skal huske hvilken farve tetriminoen havde
         public static ConsoleColor Color { get; set; }
         public Tetrimino(int x, int y)
         {
