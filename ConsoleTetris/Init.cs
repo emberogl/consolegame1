@@ -6,7 +6,7 @@
     // Controller.cs indeholder Rotate() metoden
     class Game
     {
-        public static int displayRow { get; } = 21;
+        public static int displayRow { get; } = 20 + 1;
         public static int displayCol { get; } = 10;
         public static string BoardASCII { get; } = "  ";
         public static string TetriminoASCII { get; } = "[]";
