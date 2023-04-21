@@ -1,3 +1,3 @@
 ## Tetris project
 
-don't sue me ![](https://media.tenor.com/1_BSBFzBf2sAAAAd/spongebob-sad-spongebob.gif)
+don't sue me ![](https://github.com/embernebula/consolegame1/blob/master/s.gif)
