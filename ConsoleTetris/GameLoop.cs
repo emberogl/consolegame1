@@ -73,7 +73,6 @@
             }
             for (int col = 0; col < Game.displayCol; col++)
             {
-                Game.Board[Game.displayRow - 1, col] = Game.Edge![0, col];            
             }
         }
     }

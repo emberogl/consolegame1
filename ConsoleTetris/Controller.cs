@@ -118,8 +118,8 @@
                 {
                     if (tetrimino.Shape[row, col] == 1)
                     {
-                        int boardX = tetrimino.X + col;
-                        if (boardX < 0 || boardX >= board.GetLength(1))
+                        int Col = tetrimino.X + col;
+                        if (Col < 0 || Col >= board.GetLength(1))
                         {
                             return true;
                         }
