@@ -64,7 +64,7 @@
         public static void DrawBoard()
         {
             Game.Board = new string[Game.DisplayRow, Game.DisplayCol];
-            for (int row = 0; row < Game.DisplayRow - 1; row++)
+            for (int row = 0; row < Game.DisplayRow; row++)
             {
                 for (int col = 0; col < Game.DisplayCol; col++)
                 {
