@@ -63,17 +63,17 @@
 
         public static void DrawBoard()
         {
-            Game.Board = new string[Game.displayRow, Game.displayCol];
-            for (int row = 0; row < Game.displayRow - 1; row++)
+            Game.Board = new string[Game.DisplayRow, Game.DisplayCol];
+            for (int row = 0; row < Game.DisplayRow - 1; row++)
             {
-                for (int col = 0; col < Game.displayCol; col++)
+                for (int col = 0; col < Game.DisplayCol; col++)
                 {
                     Game.Board[row, col] = Game.BoardASCII;
                 }
             }
-            for (int col = 0; col < Game.displayCol; col++)
+            for (int col = 0; col < Game.DisplayCol; col++)
             {
-                Game.Board[Game.displayRow - 1, col] = Game.Edge![0, col];            
+                Game.Board[Game.DisplayRow - 1, col] = Game.Edge![0, col];            
             }
         }
     }

@@ -6,8 +6,8 @@
     // Controller.cs indeholder Rotate() metoden
     class Game
     {
-        public static int displayRow { get; } = 20 + 1;
-        public static int displayCol { get; } = 10;
+        public static int DisplayRow { get; } = 20 + 1;
+        public static int DisplayCol { get; } = 10;
         public static string BoardASCII { get; } = "  ";
         public static string TetriminoASCII { get; } = "[]";
         //---------------------------------------------//
@@ -15,8 +15,8 @@
         public static string[,]? Edge { get; set; }
         public static void Main()
         {
-            Edge = new string[1, displayCol];
-            for (int col = 0; col < displayCol; col++)
+            Edge = new string[1, DisplayCol];
+            for (int col = 0; col < DisplayCol; col++)
             {
                 Edge[0, col] = "‾‾";
             }
@@ -27,7 +27,7 @@
             Controller._();
         }
 
-        private static object _lock = new object();
+        private static readonly object _lock = new();
 
         public static void Print(string[,] board)
         {
@@ -45,7 +45,7 @@
                         Console.Write(board[row, col]);
                         Console.ResetColor();
                     }
-                    if (board[row, displayCol - 1] != "‾‾")
+                    if (board[row, DisplayCol - 1] != "‾‾")
                     {
                         Console.Write("|");
                     }

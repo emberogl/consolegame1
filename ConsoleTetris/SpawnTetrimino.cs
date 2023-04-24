@@ -15,7 +15,7 @@
             Y = y;
             Shape = GetShape();
         }
-        private int[,] GetShape()
+        private static int[,] GetShape()
         {
             int[,] ShapeI = new int[,] { { 1, 1, 1, 1 } };
             int[,] ShapeJ = new int[,] { { 1, 0, 0 }, { 1, 1, 1 } };
