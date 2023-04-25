@@ -17,8 +17,7 @@
                 Thread.Sleep(1000);
                 if (Controller.HasCollided(RunningTetriminoInstance, Game.Board!))
                 {
-                    Console.WriteLine("has collided");
-                    RunningTetriminoInstance.Y -= 4;
+                    TetriminoManager.CycleComplete();
                 }
             }
         }

@@ -69,15 +69,23 @@
             {
                 if (GameLoop.RunningTetriminoInstance.IsActive)
                 {
-                    GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    GameLoop.RunningTetriminoInstance.Y += 1;
-                    if (IsOutOfBound(GameLoop.RunningTetriminoInstance, Game.Board!))
+                    if (!HasCollided(GameLoop.RunningTetriminoInstance, Game.Board!))
                     {
-                        GameLoop.RunningTetriminoInstance.Y -= 1;
+                        GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
+                        GameLoop.RunningTetriminoInstance.Y += 1;
+                        if (IsOutOfBound(GameLoop.RunningTetriminoInstance, Game.Board!))
+                        {
+                            GameLoop.RunningTetriminoInstance.Y -= 1;
+                        }
+                        GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
+                        Task.Run(() => Game.Print(Game.Board!));
+                        _();
                     }
-                    GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    Task.Run(() => Game.Print(Game.Board!));
-                    _();
+                    else
+                    {
+                        TetriminoManager.CycleComplete();
+                        _();
+                    }
                 }
             }
         }
@@ -131,7 +139,17 @@
 
         public static bool HasCollided(Tetrimino tetrimino, string[,] board)
         {
-            // Mangler at tjekke hvis der sker en kollision med Game.Edge eller en liste af placerede tetriminoer
+            for (int row = 0; row < tetrimino.Shape.GetLength(0); row++)
+            {
+                        int Row = tetrimino.Y + row + 1;
+                        if (board[Row, 0] == Game.Edge?[0, 0])
+                        {
+                            return true;
+                        }
+                    else if (true) {
+                    // need placed tetrimino detection (cant until placed tetrimino system in place)
+                    }
+                }
             return false;
         }
     }

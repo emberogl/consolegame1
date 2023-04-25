@@ -22,6 +22,7 @@
             }
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.Title = "Tetris";
+            ConsoleFontSize.SetConsoleFontSize(30);
             Console.CursorVisible = false;
             Task.Run(() => GameLoop.LoopBegin());
             Controller._();
