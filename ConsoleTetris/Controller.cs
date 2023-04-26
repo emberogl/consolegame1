@@ -38,7 +38,7 @@
                         GameLoop.RunningTetriminoInstance.X += 1;
                     }
                     GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    Task.Run(() => Game.Print(Game.Board!));
+                    Game.Print(Game.Board!);
                     _();
                 }
             }
@@ -57,7 +57,7 @@
                         GameLoop.RunningTetriminoInstance.X -= 1;
                     }
                     GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    Task.Run(() => Game.Print(Game.Board!));
+                    Game.Print(Game.Board!);
                     _();
                 }
             }
@@ -78,7 +78,7 @@
                             GameLoop.RunningTetriminoInstance.Y -= 1;
                         }
                         GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                        Task.Run(() => Game.Print(Game.Board!));
+                        Game.Print(Game.Board!);
                         _();
                     }
                     else
@@ -111,7 +111,7 @@
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     GameLoop.RunningTetriminoInstance.Shape = RotatedTetrimino;
                     GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    Task.Run(() => Game.Print(Game.Board!));
+                    Game.Print(Game.Board!);
                     _();
                 }
             }
