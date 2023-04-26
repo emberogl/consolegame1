@@ -34,7 +34,6 @@
         {
             lock (_lock)
             {
-                Console.Clear();
                 for (int row = 0; row < board.GetLength(0); row++)
                 {
                     for (int col = 0; col < board.GetLength(1); col++)
@@ -43,14 +42,15 @@
                         {
                             Console.ForegroundColor = Tetrimino.Color;
                         }
+                        Console.SetCursorPosition(col * 2, row);
                         Console.Write(board[row, col]);
                         Console.ResetColor();
                     }
                     if (board[row, DisplayCol - 1] != "‾‾")
                     {
+                        Console.SetCursorPosition(DisplayCol * 2, row);
                         Console.Write("|");
-                    }
-                    Console.WriteLine();
+                    };
                 }
             }
         }
