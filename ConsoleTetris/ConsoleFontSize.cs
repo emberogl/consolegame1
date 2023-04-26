@@ -35,7 +35,7 @@ namespace Tetris
         {
             IntPtr hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-            CONSOLE_FONT_INFOEX fontInfo = new CONSOLE_FONT_INFOEX();
+            CONSOLE_FONT_INFOEX fontInfo = new();
             fontInfo.cbSize = (uint)Marshal.SizeOf(fontInfo);
             fontInfo.nFont = 0;
             fontInfo.dwFontSize.X = fontSize;
