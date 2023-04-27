@@ -15,7 +15,7 @@
                 DrawTetriminoOnBoard(RunningTetriminoInstance, Game.Board!);
                 Game.Print(Game.Board!);
                 Thread.Sleep(1000);
-                if (Controller.HasCollided(RunningTetriminoInstance, Game.Board!))
+                if (Controller.HasCollided(RunningTetriminoInstance.Shape, Game.Board!))
                 {
                     TetriminoManager.CycleComplete();
                 }

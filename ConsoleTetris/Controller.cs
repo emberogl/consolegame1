@@ -69,7 +69,7 @@
             {
                 if (GameLoop.RunningTetriminoInstance.IsActive)
                 {
-                    if (!HasCollided(GameLoop.RunningTetriminoInstance, Game.Board!))
+                    if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape, Game.Board!))
                     {
                         GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         GameLoop.RunningTetriminoInstance.Y += 1;
@@ -109,7 +109,7 @@
                     }
                     Stack.Push(GameLoop.RunningTetriminoInstance.Shape);
                     Stack.Push(RotatedTetrimino);
-                    if (IsOutOfBound(RotatedTetrimino, Game.Board!))
+                    if (IsOutOfBound(RotatedTetrimino, Game.Board!) || HasCollided(RotatedTetrimino, Game.Board!))
                     {
                         Stack.Pop();
                     }
@@ -142,11 +142,11 @@
             return false;
         }
 
-        public static bool HasCollided(Tetrimino tetrimino, string[,] board)
+        public static bool HasCollided(int[,] tetrimino, string[,] board)
         {
-            for (int row = 0; row < tetrimino.Shape.GetLength(0); row++)
+            for (int row = 0; row < tetrimino.GetLength(0); row++)
             {
-                        int Row = tetrimino.Y + row + 1;
+                        int Row = GameLoop.RunningTetriminoInstance!.Y + row + 1;
                         if (board[Row, 0] == Game.Edge?[0, 0])
                         {
                             return true;
