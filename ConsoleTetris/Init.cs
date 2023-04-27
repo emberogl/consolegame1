@@ -47,7 +47,7 @@
                         Console.Write(board[row, col]);
                         Console.ResetColor();
                     }
-                    if (board[row, DisplayCol - 1] != "‾‾")
+                    if (board[row, 0] != "‾‾")
                     {
                         Console.SetCursorPosition(DisplayCol * 2, row);
                         Console.Write("|");
