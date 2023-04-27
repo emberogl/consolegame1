@@ -33,7 +33,7 @@
                 {
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     GameLoop.RunningTetriminoInstance.X -= 1;
-                    if (IsOutOfBound(GameLoop.RunningTetriminoInstance, Game.Board!))
+                    if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape, Game.Board!))
                     {
                         GameLoop.RunningTetriminoInstance.X += 1;
                     }
@@ -52,7 +52,7 @@
                 {
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     GameLoop.RunningTetriminoInstance.X += 1;
-                    if (IsOutOfBound(GameLoop.RunningTetriminoInstance, Game.Board!))
+                    if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape, Game.Board!))
                     {
                         GameLoop.RunningTetriminoInstance.X -= 1;
                     }
@@ -73,7 +73,7 @@
                     {
                         GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         GameLoop.RunningTetriminoInstance.Y += 1;
-                        if (IsOutOfBound(GameLoop.RunningTetriminoInstance, Game.Board!))
+                        if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape, Game.Board!))
                         {
                             GameLoop.RunningTetriminoInstance.Y -= 1;
                         }
@@ -98,18 +98,23 @@
                 {
                     int Rows = GameLoop.RunningTetriminoInstance.Shape.GetLength(0);
                     int Columns = GameLoop.RunningTetriminoInstance.Shape.GetLength(1);
+                    Stack<int[,]> Stack = new();
                     int[,] RotatedTetrimino = new int[Columns, Rows];
                     for (int row = 0; row < Rows; row++)
                     {
                         for (int col = 0; col < Columns; col++)
                         {
-                            
-                        // Her burde der være en condition til hvis det er muligt at rotere uden at go out of bounds of index of game.Board
-                           RotatedTetrimino[col, Rows - 1 - row] = GameLoop.RunningTetriminoInstance.Shape[row, col];
+                            RotatedTetrimino[col, Rows - 1 - row] = GameLoop.RunningTetriminoInstance.Shape[row, col];
                         }
                     }
+                    Stack.Push(GameLoop.RunningTetriminoInstance.Shape);
+                    Stack.Push(RotatedTetrimino);
+                    if (IsOutOfBound(RotatedTetrimino, Game.Board!))
+                    {
+                        Stack.Pop();
+                    }
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    GameLoop.RunningTetriminoInstance.Shape = RotatedTetrimino;
+                    GameLoop.RunningTetriminoInstance.Shape = Stack.Peek();
                     GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     Game.Print(Game.Board!);
                     _();
@@ -118,15 +123,15 @@
 
         }
 
-        public static bool IsOutOfBound(Tetrimino tetrimino, string[,] board)
+        public static bool IsOutOfBound(int[,] tetrimino, string[,] board)
         {
-            for (int row = 0; row < tetrimino.Shape.GetLength(0); row++)
+            for (int row = 0; row < tetrimino.GetLength(0); row++)
             {
-                for (int col = 0; col < tetrimino.Shape.GetLength(1); col++)
+                for (int col = 0; col < tetrimino.GetLength(1); col++)
                 {
-                    if (tetrimino.Shape[row, col] == 1)
+                    if (tetrimino[row, col] == 1)
                     {
-                        int Col = tetrimino.X + col;
+                        int Col = GameLoop.RunningTetriminoInstance!.X + col;
                         if (Col < 0 || Col >= board.GetLength(1))
                         {
                             return true;

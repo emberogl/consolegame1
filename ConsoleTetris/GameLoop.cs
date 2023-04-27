@@ -32,7 +32,7 @@
                         int Row = tetrimino.Y + row;
                         int Col = tetrimino.X + col;
 
-                        if (!Controller.IsOutOfBound(tetrimino, board))
+                        if (!Controller.IsOutOfBound(tetrimino.Shape, board))
                         {
                             board[Row, Col] = Game.TetriminoASCII;
                         }
