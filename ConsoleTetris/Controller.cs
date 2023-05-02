@@ -33,7 +33,7 @@
                 {
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     GameLoop.RunningTetriminoInstance.X -= 1;
-                    if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape, Game.Board!))
+                    if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!))
                     {
                         GameLoop.RunningTetriminoInstance.X += 1;
                     }
@@ -52,7 +52,7 @@
                 {
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     GameLoop.RunningTetriminoInstance.X += 1;
-                    if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape, Game.Board!))
+                    if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!))
                     {
                         GameLoop.RunningTetriminoInstance.X -= 1;
                     }
@@ -69,11 +69,11 @@
             {
                 if (GameLoop.RunningTetriminoInstance.IsActive)
                 {
-                    if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape, Game.Board!))
+                    if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!))
                     {
                         GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         GameLoop.RunningTetriminoInstance.Y += 1;
-                        if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape, Game.Board!))
+                        if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!))
                         {
                             GameLoop.RunningTetriminoInstance.Y -= 1;
                         }
@@ -96,7 +96,7 @@
             {
                 if (GameLoop.RunningTetriminoInstance.IsActive)
                 {
-                    int Rows = GameLoop.RunningTetriminoInstance.Shape.GetLength(0);
+                    int Rows = GameLoop.RunningTetriminoInstance.Shape!.GetLength(0);
                     int Columns = GameLoop.RunningTetriminoInstance.Shape.GetLength(1);
                     Stack<int[,]> Stack = new();
                     int[,] RotatedTetrimino = new int[Columns, Rows];

@@ -15,7 +15,7 @@
                 DrawTetriminoOnBoard(RunningTetriminoInstance, Game.Board!);
                 Game.Print(Game.Board!);
                 Thread.Sleep(1000);
-                if (Controller.HasCollided(RunningTetriminoInstance.Shape, Game.Board!))
+                if (Controller.HasCollided(RunningTetriminoInstance.Shape!, Game.Board!))
                 {
                     TetriminoManager.CycleComplete();
                 }
@@ -23,7 +23,7 @@
         }
         public static void DrawTetriminoOnBoard(Tetrimino tetrimino, string[,] board)
         {
-            for (int row = 0; row < tetrimino.Shape.GetLength(0); row++)
+            for (int row = 0; row < tetrimino.Shape?.GetLength(0); row++)
             {
                 for (int col = 0; col < tetrimino.Shape.GetLength(1); col++)
                 {
@@ -42,7 +42,7 @@
         }
         public static void EraseTetriminoFromBoard(Tetrimino tetrimino, string[,] board)
         {
-            for (int row = 0; row < tetrimino.Shape.GetLength(0); row++)
+            for (int row = 0; row < tetrimino.Shape!.GetLength(0); row++)
             {
                 for (int col = 0; col < tetrimino.Shape.GetLength(1); col++)
                 {
