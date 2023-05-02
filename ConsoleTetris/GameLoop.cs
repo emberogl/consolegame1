@@ -51,7 +51,7 @@
                         int Row = tetrimino.Y + row;
                         int Col = tetrimino.X + col;
 
-                        if (Col >= 0 && Col < board.GetLength(1) && Row >= 0 && Row < board.GetLength(0))
+                        if (Row >= 0 && Row < board.GetLength(0))
                         {
                             board[Row, Col] = Game.BoardASCII;
                         }

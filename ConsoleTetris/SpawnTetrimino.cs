@@ -3,7 +3,7 @@
     public abstract class Tetrimino
     {
         public readonly static Random Select = new();
-        public int[,] Shape;
+        public int[,]? Shape;
         public bool IsActive { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
