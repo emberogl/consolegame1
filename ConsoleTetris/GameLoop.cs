@@ -6,7 +6,7 @@
         public static void LoopBegin()
         {
             DrawBoard();
-            Tetrimino tetrimino = new(Tetrimino.Select.Next(1, 6), -1) { IsActive = true };
+            Tetrimino tetrimino = Tetrimino.NewTetrimino(Tetrimino.Select.Next(1, 6), -1); tetrimino.IsActive = true;
             RunningTetriminoInstance = tetrimino;
             while (RunningTetriminoInstance.IsActive)
             {

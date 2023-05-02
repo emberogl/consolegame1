@@ -2,17 +2,15 @@
 {
     // Jeg har indtil videre ikke implementeret en system for at gemme placerede
     // tetriminoer og så tjekke om der sker en kollision med dem
-
-    // Controller.cs indeholder Rotate() metoden
     class Game
     {
         public static int DisplayRow { get; } = 20 + 1;
         public static int DisplayCol { get; } = 10;
         public static string BoardASCII { get; } = "  ";
         public static string TetriminoASCII { get; } = "[]";
-        //---------------------------------------------//
         public static string[,]? Board { get; set; }
         public static string[,]? Edge { get; set; }
+        //---------------------------------------------//
         public static void Main()
         {
             Edge = new string[1, DisplayCol];
@@ -41,7 +39,7 @@
                     {
                         if (board[row, col] == TetriminoASCII)
                         {
-                            Console.ForegroundColor = Tetrimino.Color;
+                            Console.ForegroundColor = GameLoop.RunningTetriminoInstance!.Color;
                         }
                         Console.SetCursorPosition(col * 2, row);
                         Console.Write(board[row, col]);
