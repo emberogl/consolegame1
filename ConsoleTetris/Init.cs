@@ -1,7 +1,5 @@
 ﻿namespace Tetris
 {
-    // Jeg har indtil videre ikke implementeret en system for at gemme placerede
-    // tetriminoer og så tjekke om der sker en kollision med dem
     class Game
     {
         public static int DisplayRow { get; } = 20 + 1;
