@@ -10,6 +10,8 @@
         public static string TetriminoASCII { get; } = "[]";
         public static string[,]? Board { get; set; }
         public static string[,]? Edge { get; set; }
+        public static List<PlacedTetrimino> PlacedTetriminos { get; set; } = new List<PlacedTetrimino>();
+
         //---------------------------------------------//
         public static void Main()
         {

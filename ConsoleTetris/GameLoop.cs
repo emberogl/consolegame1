@@ -8,14 +8,14 @@
             DrawBoard();
             Tetrimino tetrimino = Tetrimino.NewTetrimino(Tetrimino.Select.Next(1, 6), -1); tetrimino.IsActive = true;
             RunningTetriminoInstance = tetrimino;
-            while (RunningTetriminoInstance.IsActive)
+            while (true)
             {
                 EraseTetriminoFromBoard(RunningTetriminoInstance, Game.Board!);
                 RunningTetriminoInstance.Y += 1;
                 DrawTetriminoOnBoard(RunningTetriminoInstance, Game.Board!);
                 Game.Print(Game.Board!);
                 Thread.Sleep(1000);
-                if (Controller.HasCollided(RunningTetriminoInstance.Shape!, Game.Board!))
+                if (Controller.HasCollided(RunningTetriminoInstance.Shape!, Game.Board!, 1, 0))
                 {
                     TetriminoManager.CycleComplete();
                 }

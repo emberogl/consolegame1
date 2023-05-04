@@ -27,9 +27,9 @@
 
         private static void MoveLeft()
         {
-            if (GameLoop.RunningTetriminoInstance != null)
+            if (GameLoop.RunningTetriminoInstance != null && GameLoop.RunningTetriminoInstance.IsActive)
             {
-                if (GameLoop.RunningTetriminoInstance.IsActive)
+                if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 0, -1))
                 {
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     GameLoop.RunningTetriminoInstance.X -= 1;
@@ -41,14 +41,18 @@
                     Game.Print(Game.Board!);
                     _();
                 }
+                else
+                {
+                    _();
+                }
             }
         }
 
         private static void MoveRight()
         {
-            if (GameLoop.RunningTetriminoInstance != null)
+            if (GameLoop.RunningTetriminoInstance != null && GameLoop.RunningTetriminoInstance.IsActive)
             {
-                if (GameLoop.RunningTetriminoInstance.IsActive)
+                if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 0, 1))
                 {
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     GameLoop.RunningTetriminoInstance.X += 1;
@@ -60,6 +64,10 @@
                     Game.Print(Game.Board!);
                     _();
                 }
+                else
+                {
+                    _();
+                }
             }
         }
 
@@ -69,7 +77,7 @@
             {
                 if (GameLoop.RunningTetriminoInstance.IsActive)
                 {
-                    if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!))
+                    if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 0, 0))
                     {
                         GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         GameLoop.RunningTetriminoInstance.Y += 1;
@@ -109,7 +117,7 @@
                     }
                     Stack.Push(GameLoop.RunningTetriminoInstance.Shape);
                     Stack.Push(RotatedTetrimino);
-                    if (IsOutOfBound(RotatedTetrimino, Game.Board!) || HasCollided(RotatedTetrimino, Game.Board!))
+                    if (IsOutOfBound(RotatedTetrimino, Game.Board!) || HasCollided(RotatedTetrimino, Game.Board!, 0, 0))
                     {
                         Stack.Pop();
                     }
@@ -142,20 +150,40 @@
             return false;
         }
 
-        public static bool HasCollided(int[,] tetrimino, string[,] board)
+        public static bool HasCollided(int[,] tetrimino, string[,] board, int rowOffset, int colOffset)
         {
+            string[,] boardCopy = (string[,])board.Clone();
+            GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance!, boardCopy);
+
             for (int row = 0; row < tetrimino.GetLength(0); row++)
             {
-                        int Row = GameLoop.RunningTetriminoInstance!.Y + row + 1;
-                        if (board[Row, 0] == Game.Edge?[0, 0])
+                for (int col = 0; col < tetrimino.GetLength(1); col++)
+                {
+                    int boardRowOffset1 = GameLoop.RunningTetriminoInstance!.Y + row + 1;
+                    int boardRow = GameLoop.RunningTetriminoInstance!.Y + row + rowOffset;
+                    int boardCol = GameLoop.RunningTetriminoInstance!.X + col + colOffset;
+
+                    if (board[boardRowOffset1, 0] == Game.Edge?[0, 0])
+                    {
+                        return true;
+                    }
+                    try
+                    {
+                        if (boardCopy[boardRow, boardCol] == Game.TetriminoASCII)
                         {
                             return true;
                         }
-                    else if (true) {
-                    // need placed tetrimino detection (cant until placed tetrimino system in place)
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        continue;
                     }
                 }
+            }
             return false;
         }
+
+
+
     }
 }
