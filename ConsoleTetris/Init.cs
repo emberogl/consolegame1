@@ -4,9 +4,11 @@
     {
         public static int DisplayRow { get; } = 20 + 1;
         public static int DisplayCol { get; } = 10;
+        public static string[,] ScoreDisplay { get; set; } = new string[DisplayRow, 50];
         public static string BoardASCII { get; } = "  ";
         public static string TetriminoASCII { get; } = "[]";
         public static string[,]? Board { get; set; }
+        public static int Score { get; set; } = 0;
         public static List<PlacedTetrimino> PlacedTetriminos { get; set; } = new List<PlacedTetrimino>();
 
         //---------------------------------------------//
@@ -17,8 +19,31 @@
             Console.SetWindowSize(40, 21);
             ConsoleFontSize.SetConsoleFontSize(30);
             Console.CursorVisible = false;
+            InitializeScoreDisplay();
             Task.Run(() => GameLoop.LoopBegin());
             Controller._();
+        }
+
+        private static void InitializeScoreDisplay()
+        {
+            for (int row = 0; row < 5; row++)
+            {
+                for (int col = 0; col < 10; col++)
+                {
+                        ScoreDisplay[row, col] = BoardASCII;
+                }
+            }
+            UpdateScoreDisplay();
+        }
+
+        public static void UpdateScoreDisplay()
+        {
+            string scoreString = $"Score: {Score}";
+
+            for (int col = 0; col < scoreString.Length; col++)
+            {
+                ScoreDisplay[2, col] = scoreString[col].ToString();
+            }
         }
 
         private static readonly object _lock = new();
@@ -56,10 +81,19 @@
                         Console.Write(board[row, col]);
                         Console.ResetColor();
                     }
-                    if (board[row, 0] != "‾‾")
-                    {
+
                         Console.SetCursorPosition(DisplayCol * 2, row);
-                        Console.Write("|");
+                        Console.Write("[]");
+                    
+                }
+
+                for (int row = 0; row < ScoreDisplay.GetLength(0); row++)
+                {
+                    Console.SetCursorPosition(DisplayCol * 2 + 6, row);
+
+                    for (int col = 0; col < ScoreDisplay.GetLength(1); col++)
+                    {
+                        Console.Write(ScoreDisplay[row, col]);
                     }
                 }
             }

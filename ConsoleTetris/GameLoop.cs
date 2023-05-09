@@ -15,7 +15,7 @@
                 DrawTetriminoOnBoard(RunningTetriminoInstance, Game.Board!);
                 Game.Print(Game.Board!);
                 Thread.Sleep(1000);
-                if (Controller.HasCollided(RunningTetriminoInstance.Shape!, Game.Board!, 1, 0, nameof(LoopBegin)))
+                if (Controller.HasCollided(RunningTetriminoInstance.Shape!, Game.Board!, 1, 0))
                 {
                     TetriminoManager.CycleComplete();
                 }
@@ -72,7 +72,7 @@
             }
             for (int col = 0; col < Game.DisplayCol; col++)
             {
-                Game.Board[Game.DisplayRow - 1, col] = "‾‾";            
+                Game.Board[Game.DisplayRow - 1, col] = "[]";            
             }
         }
     }

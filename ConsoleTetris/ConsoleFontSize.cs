@@ -42,7 +42,7 @@ namespace Tetris
             fontInfo.dwFontSize.Y = fontSize;
             fontInfo.FontFamily = 54;
             fontInfo.FontWeight = 400;
-            fontInfo.FaceName = "Consolas";
+            fontInfo.FaceName = "Bahnschrift";
 
             SetCurrentConsoleFontEx(hConsole, false, ref fontInfo);
         }
