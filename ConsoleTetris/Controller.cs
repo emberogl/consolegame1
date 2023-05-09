@@ -29,7 +29,7 @@
         {
             if (GameLoop.RunningTetriminoInstance != null && GameLoop.RunningTetriminoInstance.IsActive)
             {
-                if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 0, -1))
+                if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 0, -1, nameof(MoveLeft)))
                 {
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     GameLoop.RunningTetriminoInstance.X -= 1;
@@ -52,7 +52,7 @@
         {
             if (GameLoop.RunningTetriminoInstance != null && GameLoop.RunningTetriminoInstance.IsActive)
             {
-                if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 0, 1))
+                if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 0, 1, nameof(MoveRight)))
                 {
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     GameLoop.RunningTetriminoInstance.X += 1;
@@ -77,7 +77,7 @@
             {
                 if (GameLoop.RunningTetriminoInstance.IsActive)
                 {
-                    if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 0, 0))
+                    if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 1, 0, nameof(MoveDown)))
                     {
                         GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         GameLoop.RunningTetriminoInstance.Y += 1;
@@ -117,7 +117,7 @@
                     }
                     Stack.Push(GameLoop.RunningTetriminoInstance.Shape);
                     Stack.Push(RotatedTetrimino);
-                    if (IsOutOfBound(RotatedTetrimino, Game.Board!) || HasCollided(RotatedTetrimino, Game.Board!, 0, 0))
+                    if (IsOutOfBound(RotatedTetrimino, Game.Board!) || HasCollided(RotatedTetrimino, Game.Board!, 0, 0, nameof(Rotate)))
                     {
                         Stack.Pop();
                     }
@@ -150,7 +150,7 @@
             return false;
         }
 
-        public static bool HasCollided(int[,] tetrimino, string[,] board, int rowOffset, int colOffset)
+        public static bool HasCollided(int[,] tetrimino, string[,] board, int rowOffset, int colOffset, string Caller)
         {
             string[,] boardCopy = (string[,])board.Clone();
             GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance!, boardCopy);
@@ -159,29 +159,47 @@
             {
                 for (int col = 0; col < tetrimino.GetLength(1); col++)
                 {
-                    int boardRowOffset1 = GameLoop.RunningTetriminoInstance!.Y + row + 1;
-                    int boardRow = GameLoop.RunningTetriminoInstance!.Y + row + rowOffset;
-                    int boardCol = GameLoop.RunningTetriminoInstance!.X + col + colOffset;
+                    if (tetrimino[row, col] != 0)
+                    {
+                        int boardRowOffset1 = GameLoop.RunningTetriminoInstance!.Y + row + 1;
+                        int boardRow = GameLoop.RunningTetriminoInstance!.Y + row + rowOffset;
+                        int boardCol = GameLoop.RunningTetriminoInstance!.X + col + colOffset;
 
-                    if (board[boardRowOffset1, 0] == Game.Edge?[0, 0])
-                    {
-                        return true;
-                    }
-                    try
-                    {
-                        if (boardCopy[boardRow, boardCol] == Game.TetriminoASCII)
+                        if (board[boardRowOffset1, 0] == "‾‾")
                         {
+                            if (Caller == nameof(MoveLeft))
+                            {
+                                GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
+                                GameLoop.RunningTetriminoInstance.X -= 1;
+                                GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
+                                Game.Print(Game.Board!);
+                            }
+                            else if (Caller == nameof(MoveRight))
+                            {
+                                GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
+                                GameLoop.RunningTetriminoInstance.X += 1;
+                                GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
+                                Game.Print(Game.Board!);
+                            }
                             return true;
                         }
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        continue;
+                        try
+                        {
+                            if (boardCopy[boardRow, boardCol] == Game.TetriminoASCII)
+                            {
+                                return true;
+                            }
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            continue;
+                        }
                     }
                 }
             }
             return false;
         }
+
 
 
 

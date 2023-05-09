@@ -7,17 +7,11 @@
         public static string BoardASCII { get; } = "  ";
         public static string TetriminoASCII { get; } = "[]";
         public static string[,]? Board { get; set; }
-        public static string[,]? Edge { get; set; }
         public static List<PlacedTetrimino> PlacedTetriminos { get; set; } = new List<PlacedTetrimino>();
 
         //---------------------------------------------//
         public static void Main()
         {
-            Edge = new string[1, DisplayCol];
-            for (int col = 0; col < DisplayCol; col++)
-            {
-                Edge[0, col] = "‾‾";
-            }
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.Title = "Tetris";
             Console.SetWindowSize(40, 21);
@@ -37,10 +31,27 @@
                 {
                     for (int col = 0; col < board.GetLength(1); col++)
                     {
-                        if (board[row, col] == TetriminoASCII)
+                        if (board[row, col] == TetriminoASCII && GameLoop.RunningTetriminoInstance != null &&
+                            row >= GameLoop.RunningTetriminoInstance.Y &&
+                            row < GameLoop.RunningTetriminoInstance.Y + GameLoop.RunningTetriminoInstance.Shape!.GetLength(0) &&
+                            col >= GameLoop.RunningTetriminoInstance.X &&
+                            col < GameLoop.RunningTetriminoInstance.X + GameLoop.RunningTetriminoInstance.Shape.GetLength(1) &&
+                            GameLoop.RunningTetriminoInstance.Shape[row - GameLoop.RunningTetriminoInstance.Y, col - GameLoop.RunningTetriminoInstance.X] == 1)
                         {
-                            Console.ForegroundColor = GameLoop.RunningTetriminoInstance!.Color;
+                            Console.ForegroundColor = GameLoop.RunningTetriminoInstance.Color;
                         }
+                        else
+                        {
+                            foreach (PlacedTetrimino placedTetrimino in PlacedTetriminos)
+                            {
+                                if (placedTetrimino.X == col && placedTetrimino.Y == row)
+                                {
+                                    Console.ForegroundColor = placedTetrimino.Color;
+                                    break;
+                                }
+                            }
+                        }
+
                         Console.SetCursorPosition(col * 2, row);
                         Console.Write(board[row, col]);
                         Console.ResetColor();
@@ -49,9 +60,10 @@
                     {
                         Console.SetCursorPosition(DisplayCol * 2, row);
                         Console.Write("|");
-                    };
+                    }
                 }
             }
         }
+
     }
 }
