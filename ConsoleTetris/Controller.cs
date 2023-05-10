@@ -4,6 +4,11 @@
     {
         public static void _()
         {
+            while (Console.KeyAvailable)
+            {
+                Console.ReadKey(true);
+            }
+
             var CKey = Console.ReadKey(true);
             switch (CKey.Key)
             {
@@ -165,22 +170,21 @@
                     {
                         int boardRow = GameLoop.RunningTetriminoInstance!.Y + row + rowOffset;
                         int boardCol = GameLoop.RunningTetriminoInstance!.X + col + colOffset;
-                        try
+
+                        if (boardRow < 0 || boardRow >= boardCopy.GetLength(0) || boardCol < 0 || boardCol >= boardCopy.GetLength(1))
                         {
-                            if (boardCopy[boardRow, boardCol] == Game.TetriminoASCII)
-                            {
-                                return true;
-                            }
+                            return true;
                         }
-                        catch (IndexOutOfRangeException)
+                        else if (boardCopy[boardRow, boardCol] == Game.TetriminoASCII)
                         {
-                            continue;
+                            return true;
                         }
                     }
                 }
             }
             return false;
         }
+
 
 
 

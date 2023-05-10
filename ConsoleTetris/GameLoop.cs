@@ -5,7 +5,9 @@
         public static Tetrimino? RunningTetriminoInstance { get; set; }
         public static void LoopBegin()
         {
+            Task.Run(() => Timer.ElapseTimer());
             DrawBoard();
+            Game.UpdateScoreDisplay();
             Tetrimino tetrimino = Tetrimino.NewTetrimino(Tetrimino.Select.Next(1, 6), -1); tetrimino.IsActive = true;
             RunningTetriminoInstance = tetrimino;
             while (true)
@@ -14,7 +16,7 @@
                 RunningTetriminoInstance.Y += 1;
                 DrawTetriminoOnBoard(RunningTetriminoInstance, Game.Board!);
                 Game.Print(Game.Board!);
-                Thread.Sleep(1000);
+                Delta.TimeDelta();
                 if (Controller.HasCollided(RunningTetriminoInstance.Shape!, Game.Board!, 1, 0))
                 {
                     TetriminoManager.CycleComplete();
