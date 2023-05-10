@@ -128,7 +128,7 @@
                         }
                         else
                         {
-                            foreach (PlacedTetrimino placedTetrimino in PlacedTetriminos)
+                            foreach (PlacedTetrimino placedTetrimino in PlacedTetriminos.ToList())
                             {
                                 if (placedTetrimino.X == col && placedTetrimino.Y == row)
                                 {

@@ -75,14 +75,13 @@
                 }
             }
         }
-
         private static void MoveDown()
         {
             if (GameLoop.RunningTetriminoInstance != null)
             {
                 if (GameLoop.RunningTetriminoInstance.IsActive)
                 {
-                    if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 1, 0))    
+                    if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 1, 0))
                     {
                         Game.Score += 2;
                         Game.UpdateScoreDisplay();
