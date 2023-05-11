@@ -9,7 +9,7 @@
         public static string[,] ScoreDisplay { get; set; } = new string[DisplayRow, 50];
         public static string[,] TimeDisplay { get; set; } = new string[DisplayRow, 50];
         public static string[,] ElapseDisplay { get; set; } = new string[DisplayRow, 50];
-        public static string[,] QueueDisplay { get; set; } = new string[DisplayRow, 10];
+        public static Tetrimino[,] QueueDisplay { get; set; } = new Tetrimino[DisplayRow, 10];
         //---------------------------------------------//
         public static double? Time { get; set; } = 0.0;
         public static string? Elapse { get; set; }
@@ -71,14 +71,14 @@
 
         public static void UpdateQueue()
         {
-            for (int row = 0; row < 10; row++)
+            for (int row = 0; row < 15; row++)
             {
                 for (int col = 0; col < 10; col++)
                 {
-                    QueueDisplay[5 + row, col] = BoardASCII;
+                    QueueDisplay[5 + row, col] = null!;
                 }
             }
-            for (int row = 0; row < 10; row++)
+            for (int row = 0; row < 15; row++)
             {
                 for (int col = 0; col < 10; col++)
                 {
@@ -91,7 +91,7 @@
                             {
                                 if (tetrimino.Shape![Row, Col] == 1)
                                 {
-                                QueueDisplay[5 + Row + offset, Col] = TetriminoASCII;
+                                    QueueDisplay[6 + Row + offset, Col] = tetrimino;
                                 }
                             }
                         }
@@ -99,6 +99,7 @@
                     }
                 }
             }
+
         }
 
         public static void UpdateScoreDisplay()
@@ -169,6 +170,23 @@
                     
                 }
 
+                for (int row = 0; row < QueueDisplay.GetLength(0); row++)
+                {
+                    for (int col = 0; col < QueueDisplay.GetLength(1); col++)
+                    {
+                        Console.SetCursorPosition(DisplayCol * 2 + 10 + (col * 2), row);
+                        if (QueueDisplay[row, col] != null)
+                        {
+                            Console.ForegroundColor = QueueDisplay[row, col].Color;
+                            Console.Write(TetriminoASCII);
+                        }
+                        else
+                        {
+                            Console.Write(BoardASCII);
+                        }
+                        Console.ResetColor();
+                    }
+                }
                 for (int row = 0; row < ScoreDisplay.GetLength(0); row++)
                 {
                     Console.SetCursorPosition(DisplayCol * 2 + 6, row);
@@ -195,14 +213,6 @@
                     for (int col = 0; col < ScoreDisplay.GetLength(1); col++)
                     {
                         Console.Write(ElapseDisplay[row, col]);
-                    }
-                }
-                for (int row = 0; row < QueueDisplay.GetLength(0); row++)
-                {
-                    for (int col = 0; col < QueueDisplay.GetLength(1); col++)
-                    {
-                        Console.SetCursorPosition(DisplayCol * 2 + 10 + (col * 2), row);
-                        Console.Write(QueueDisplay[row, col]);
                     }
                 }
             }

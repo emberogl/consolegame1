@@ -98,6 +98,9 @@
                     else
                     {
                         TetriminoManager.CycleComplete();
+                        GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
+                        GameLoop.RunningTetriminoInstance.Y += 1;
+                        GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         _();
                     }
                 }

@@ -16,7 +16,7 @@
             }
             else if (Queue.Count == 2)
             {
-                Queue.Add(Tetrimino.NewTetrimino(Tetrimino.Select.Next(1, 6), -1));
+                    Queue.Add(Tetrimino.NewTetrimino(Tetrimino.Select.Next(1, 6), -1));
             }
         }
         public static void StartQueue()

@@ -3,6 +3,7 @@
     public abstract class Tetrimino
     {
         public readonly static Random Select = new();
+        private static int? lastTetrimino = null;
         public int[,]? Shape;
         public bool IsActive { get; set; }
         public int X { get; set; }
@@ -26,7 +27,13 @@
 
         public static Tetrimino NewTetrimino(int x, int y)
         {
-            int randomTetrimino = Select.Next(0, 7);
+            int randomTetrimino;
+            do
+            {
+              randomTetrimino = Select.Next(0, 7);
+            } while (lastTetrimino == randomTetrimino);
+
+            lastTetrimino = randomTetrimino;
 
             return randomTetrimino switch
             {

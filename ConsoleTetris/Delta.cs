@@ -1,23 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace Tetris
 {
     internal class Delta
     {
+        public static double Velocity { get; set; } = 0;
         public static void TimeDelta()
         {
-            for (double i = 0.0; i < 1; i += 0.1)
+            Stopwatch stopwatch = new();
+            stopwatch.Start();
+
+            double lastTime = 0.0;
+
+            while (true)
             {
                 Thread.Sleep(Game.DeltaValue);
-                Game.Time = i;
+
+                double elapsedTime = stopwatch.Elapsed.TotalSeconds;
+                double deltaTime = elapsedTime - lastTime - Velocity;
+                Game.Time += deltaTime;
+
+                if (Game.Time >= 1.0)
+                {
+                    break;
+                }
+
+                lastTime = elapsedTime;
+
                 Game.UpdateTimer();
                 Game.Print(Game.Board!);
             }
-            Game.Time = 0;
+
+            Game.Time = 0.0;
         }
     }
 }
