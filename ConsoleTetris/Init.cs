@@ -130,7 +130,6 @@
             }
         }
         private static readonly object _lock = new();
-
         public static void Print(string[,] board)
         {
             lock (_lock)
@@ -170,7 +169,7 @@
                     
                 }
 
-                for (int row = 0; row < QueueDisplay.GetLength(0); row++)
+                for (int row = 6; row < 16; row++)
                 {
                     for (int col = 0; col < QueueDisplay.GetLength(1); col++)
                     {

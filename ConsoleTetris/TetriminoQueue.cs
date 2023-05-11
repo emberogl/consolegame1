@@ -9,7 +9,7 @@
         {
             if (Queue!.Count == 0)
             {
-                for (int i = 0; i < 3; i++)
+                while (Queue.Count < 3)
                 {
                     Queue.Add(Tetrimino.NewTetrimino(Tetrimino.Select.Next(1, 6), -1));
                 }
