@@ -8,7 +8,8 @@
             Task.Run(() => Timer.ElapseTimer());
             DrawBoard();
             Game.UpdateScoreDisplay();
-            Tetrimino tetrimino = Tetrimino.NewTetrimino(Tetrimino.Select.Next(1, 6), -1); tetrimino.IsActive = true;
+            TetriminoQueue.StartQueue();
+            Tetrimino tetrimino = TetriminoQueue.FirstInQueue!; tetrimino.IsActive = true;
             RunningTetriminoInstance = tetrimino;
             while (true)
             {

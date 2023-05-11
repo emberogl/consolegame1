@@ -4,6 +4,7 @@
     {
         public static void CycleComplete()
         {
+            TetriminoQueue.StartQueue();
             Tetrimino currentTetrimino = GameLoop.RunningTetriminoInstance!;
 
             for (int row = 0; row < currentTetrimino.Shape!.GetLength(0); row++)
@@ -21,9 +22,10 @@
                 }
             }
 
-            Tetrimino newTetrimino = Tetrimino.NewTetrimino(Tetrimino.Select.Next(1, 6), -1);
+            Tetrimino newTetrimino = TetriminoQueue.FirstInQueue!;
             newTetrimino.IsActive = true;
             GameLoop.RunningTetriminoInstance = newTetrimino;
+            Game.UpdateQueue();
         }
 
     }

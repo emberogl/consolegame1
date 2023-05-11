@@ -9,7 +9,7 @@
         public static string[,] ScoreDisplay { get; set; } = new string[DisplayRow, 50];
         public static string[,] TimeDisplay { get; set; } = new string[DisplayRow, 50];
         public static string[,] ElapseDisplay { get; set; } = new string[DisplayRow, 50];
-        public static string[,] QueueDisplay { get; set; } = new string[DisplayRow, 50];
+        public static string[,] QueueDisplay { get; set; } = new string[DisplayRow, 10];
         //---------------------------------------------//
         public static double? Time { get; set; } = 0.0;
         public static string? Elapse { get; set; }
@@ -26,7 +26,7 @@
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.Title = "Tetris";
-            Console.SetWindowSize(50, DisplayRow);
+            Console.SetWindowSize(55, DisplayRow);
             ConsoleFontSize.SetConsoleFontSize(30);
             Console.CursorVisible = false;
             InitializeScoreDisplay();
@@ -69,13 +69,34 @@
             UpdateElapseTimer();
         }
 
-        private static void InitializeTetriminoQueue()
+        public static void UpdateQueue()
         {
-            for (int row = 0;row < 30; row++)
+            for (int row = 0; row < 10; row++)
             {
                 for (int col = 0; col < 10; col++)
                 {
-
+                    QueueDisplay[5 + row, col] = BoardASCII;
+                }
+            }
+            for (int row = 0; row < 10; row++)
+            {
+                for (int col = 0; col < 10; col++)
+                {
+                    int offset = 0;
+                    foreach (var tetrimino in TetriminoQueue.Queue!)
+                    {
+                        for (int Row = 0; Row < tetrimino.GetFirstDimensionLength(); Row++)
+                        {
+                            for (int Col = 0; Col < tetrimino.GetSecondDimensionLength(); Col++)
+                            {
+                                if (tetrimino.Shape![Row, Col] == 1)
+                                {
+                                QueueDisplay[5 + Row + offset, Col] = TetriminoASCII;
+                                }
+                            }
+                        }
+                        offset += 4;
+                    }
                 }
             }
         }
@@ -174,6 +195,14 @@
                     for (int col = 0; col < ScoreDisplay.GetLength(1); col++)
                     {
                         Console.Write(ElapseDisplay[row, col]);
+                    }
+                }
+                for (int row = 0; row < QueueDisplay.GetLength(0); row++)
+                {
+                    for (int col = 0; col < QueueDisplay.GetLength(1); col++)
+                    {
+                        Console.SetCursorPosition(DisplayCol * 2 + 10 + (col * 2), row);
+                        Console.Write(QueueDisplay[row, col]);
                     }
                 }
             }

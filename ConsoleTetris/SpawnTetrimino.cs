@@ -14,6 +14,16 @@
             Y = y;
         }
 
+        public int GetFirstDimensionLength()
+        {
+            return Shape?.GetLength(0) ?? 0;
+        }
+
+        public int GetSecondDimensionLength()
+        {
+            return Shape?.GetLength(1) ?? 0;
+        }
+
         public static Tetrimino NewTetrimino(int x, int y)
         {
             int randomTetrimino = Select.Next(0, 7);
