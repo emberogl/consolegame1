@@ -43,7 +43,7 @@
                         GameLoop.RunningTetriminoInstance.X += 1;
                     }
                     GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    Game.Print(Game.Board!);
+                    Game.Print(Game.Board!, true);
                     _();
                 }
                 else
@@ -66,7 +66,7 @@
                         GameLoop.RunningTetriminoInstance.X -= 1;
                     }
                     GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    Game.Print(Game.Board!);
+                    Game.Print(Game.Board!, true);
                     _();
                 }
                 else
@@ -85,6 +85,7 @@
                     {
                         Game.Score += 2;
                         Game.UpdateScoreDisplay();
+                        Game.Print(Game.Board!, printscore: true);
                         GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         GameLoop.RunningTetriminoInstance.Y += 1;
                         if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!))
@@ -92,7 +93,7 @@
                             GameLoop.RunningTetriminoInstance.Y -= 1;
                         }
                         GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                        Game.Print(Game.Board!);
+                        Game.Print(Game.Board!, true);
                         _();
                     }
                     else
@@ -101,6 +102,7 @@
                         GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         GameLoop.RunningTetriminoInstance.Y += 1;
                         GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
+                        Game.Print(Game.Board!, true);
                         _();
                     }
                 }
@@ -133,7 +135,7 @@
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     GameLoop.RunningTetriminoInstance.Shape = Stack.Peek();
                     GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    Game.Print(Game.Board!);
+                    Game.Print(Game.Board!, true);
                     _();
                 }
             }

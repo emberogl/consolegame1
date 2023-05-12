@@ -28,7 +28,7 @@ namespace Tetris
                 lastTime = elapsedTime;
 
                 Game.UpdateTimer();
-                Game.Print(Game.Board!);
+                Game.Print(Game.Board!, printdelta: true);
             }
 
             Game.Time = 0.0;

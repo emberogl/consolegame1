@@ -11,12 +11,13 @@
             TetriminoQueue.StartQueue();
             Tetrimino tetrimino = TetriminoQueue.FirstInQueue!; tetrimino.IsActive = true;
             RunningTetriminoInstance = tetrimino;
+            Game.Print(Game.Board!, printqueue: true, printscore: true);
             while (true)
             {
                 EraseTetriminoFromBoard(RunningTetriminoInstance, Game.Board!);
                 RunningTetriminoInstance.Y += 1;
                 DrawTetriminoOnBoard(RunningTetriminoInstance, Game.Board!);
-                Game.Print(Game.Board!);
+                Game.Print(Game.Board!, true);
                 Delta.TimeDelta();
                 if (Controller.HasCollided(RunningTetriminoInstance.Shape!, Game.Board!, 1, 0))
                 {

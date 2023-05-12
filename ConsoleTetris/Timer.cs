@@ -12,6 +12,7 @@ namespace Tetris
                 TimeSpan elapsedTime = stopwatch.Elapsed;
                 Game.Elapse = $"{(int)elapsedTime.TotalHours:00}:{elapsedTime:mm\\:ss}";
                 Game.UpdateElapseTimer();
+                Game.Print(Game.Board!, printelapse: true);
             }
         }
     }

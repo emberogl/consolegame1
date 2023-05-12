@@ -26,6 +26,7 @@
             newTetrimino.IsActive = true;
             GameLoop.RunningTetriminoInstance = newTetrimino;
             Game.UpdateQueue();
+            Game.Print(Game.Board!, printqueue: true);
         }
 
     }

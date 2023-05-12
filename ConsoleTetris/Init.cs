@@ -130,88 +130,101 @@
             }
         }
         private static readonly object _lock = new();
-        public static void Print(string[,] board)
+        public static void Print(string[,] board, bool printboard = false, bool printqueue = false, bool printscore = false, bool printelapse = false, bool printdelta = false)
         {
             lock (_lock)
             {
-                for (int row = 0; row < board.GetLength(0); row++)
+                if (printboard)
                 {
-                    for (int col = 0; col < board.GetLength(1); col++)
+                    for (int row = 0; row < board.GetLength(0); row++)
                     {
-                        if (board[row, col] == TetriminoASCII && GameLoop.RunningTetriminoInstance != null &&
-                            row >= GameLoop.RunningTetriminoInstance.Y &&
-                            row < GameLoop.RunningTetriminoInstance.Y + GameLoop.RunningTetriminoInstance.Shape!.GetLength(0) &&
-                            col >= GameLoop.RunningTetriminoInstance.X &&
-                            col < GameLoop.RunningTetriminoInstance.X + GameLoop.RunningTetriminoInstance.Shape.GetLength(1) &&
-                            GameLoop.RunningTetriminoInstance.Shape[row - GameLoop.RunningTetriminoInstance.Y, col - GameLoop.RunningTetriminoInstance.X] == 1)
+                        for (int col = 0; col < board.GetLength(1); col++)
                         {
-                            Console.ForegroundColor = GameLoop.RunningTetriminoInstance.Color;
-                        }
-                        else
-                        {
-                            foreach (PlacedTetrimino placedTetrimino in PlacedTetriminos.ToList())
+                            if (board[row, col] == TetriminoASCII && GameLoop.RunningTetriminoInstance != null &&
+                                row >= GameLoop.RunningTetriminoInstance.Y &&
+                                row < GameLoop.RunningTetriminoInstance.Y + GameLoop.RunningTetriminoInstance.Shape!.GetLength(0) &&
+                                col >= GameLoop.RunningTetriminoInstance.X &&
+                                col < GameLoop.RunningTetriminoInstance.X + GameLoop.RunningTetriminoInstance.Shape.GetLength(1) &&
+                                GameLoop.RunningTetriminoInstance.Shape[row - GameLoop.RunningTetriminoInstance.Y, col - GameLoop.RunningTetriminoInstance.X] == 1)
                             {
-                                if (placedTetrimino.X == col && placedTetrimino.Y == row)
+                                Console.ForegroundColor = GameLoop.RunningTetriminoInstance.Color;
+                            }
+                            else
+                            {
+                                foreach (PlacedTetrimino placedTetrimino in PlacedTetriminos.ToList())
                                 {
-                                    Console.ForegroundColor = placedTetrimino.Color;
-                                    break;
+                                    if (placedTetrimino.X == col && placedTetrimino.Y == row)
+                                    {
+                                        Console.ForegroundColor = placedTetrimino.Color;
+                                        break;
+                                    }
                                 }
                             }
-                        }
 
-                        Console.SetCursorPosition(col * 2, row);
-                        Console.Write(board[row, col]);
-                        Console.ResetColor();
-                    }
+                            Console.SetCursorPosition(col * 2, row);
+                            Console.Write(board[row, col]);
+                            Console.ResetColor();
+                        }
 
                         Console.SetCursorPosition(DisplayCol * 2, row);
                         Console.Write("[]");
-                    
-                }
 
-                for (int row = 6; row < 16; row++)
+                    }
+                }
+                if (printqueue)
                 {
-                    for (int col = 0; col < QueueDisplay.GetLength(1); col++)
+                    for (int row = 6; row < 16; row++)
                     {
-                        Console.SetCursorPosition(DisplayCol * 2 + 10 + (col * 2), row);
-                        if (QueueDisplay[row, col] != null)
+                        for (int col = 0; col < QueueDisplay.GetLength(1); col++)
                         {
-                            Console.ForegroundColor = QueueDisplay[row, col].Color;
-                            Console.Write(TetriminoASCII);
+                            Console.SetCursorPosition(DisplayCol * 2 + 10 + (col * 2), row);
+                            if (QueueDisplay[row, col] != null)
+                            {
+                                Console.ForegroundColor = QueueDisplay[row, col].Color;
+                                Console.Write(TetriminoASCII);
+                            }
+                            else
+                            {
+                                Console.Write(BoardASCII);
+                            }
+                            Console.ResetColor();
                         }
-                        else
+                    }
+                }
+                if (printscore)
+                {
+                    for (int row = 0; row < ScoreDisplay.GetLength(0); row++)
+                    {
+                        Console.SetCursorPosition(DisplayCol * 2 + 6, row);
+
+                        for (int col = 0; col < ScoreDisplay.GetLength(1); col++)
                         {
-                            Console.Write(BoardASCII);
+                            Console.Write(ScoreDisplay[row, col]);
                         }
-                        Console.ResetColor();
                     }
                 }
-                for (int row = 0; row < ScoreDisplay.GetLength(0); row++)
+                if (printdelta)
                 {
-                    Console.SetCursorPosition(DisplayCol * 2 + 6, row);
-
-                    for (int col = 0; col < ScoreDisplay.GetLength(1); col++)
+                    for (int row = 0; row < TimeDisplay.GetLength(0); row++)
                     {
-                        Console.Write(ScoreDisplay[row, col]);
+                        Console.SetCursorPosition(DisplayCol * 2 + 6, row);
+
+                        for (int col = 0; col < ScoreDisplay.GetLength(1); col++)
+                        {
+                            Console.Write(TimeDisplay[row, col]);
+                        }
                     }
                 }
-
-                for (int row = 0; row < TimeDisplay.GetLength(0); row++)
+                if (printelapse)
                 {
-                    Console.SetCursorPosition(DisplayCol * 2 + 6, row);
-
-                    for (int col = 0; col < ScoreDisplay.GetLength(1); col++)
+                    for (int row = 0; row < ElapseDisplay.GetLength(0); row++)
                     {
-                        Console.Write(TimeDisplay[row, col]);
-                    }
-                }
-                for (int row = 0; row < ElapseDisplay.GetLength(0); row++)
-                {
-                    Console.SetCursorPosition(DisplayCol * 2 + 6, row);
+                        Console.SetCursorPosition(DisplayCol * 2 + 6, row);
 
-                    for (int col = 0; col < ScoreDisplay.GetLength(1); col++)
-                    {
-                        Console.Write(ElapseDisplay[row, col]);
+                        for (int col = 0; col < ScoreDisplay.GetLength(1); col++)
+                        {
+                            Console.Write(ElapseDisplay[row, col]);
+                        }
                     }
                 }
             }
