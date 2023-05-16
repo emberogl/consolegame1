@@ -115,15 +115,20 @@
             {
                 if (GameLoop.RunningTetriminoInstance.IsActive)
                 {
-                    int Rows = GameLoop.RunningTetriminoInstance.Shape!.GetLength(0);
-                    int Columns = GameLoop.RunningTetriminoInstance.Shape.GetLength(1);
+                    //int Rows = GameLoop.RunningTetriminoInstance.Shape!.GetLength(0);
+                    //int Columns = GameLoop.RunningTetriminoInstance.Shape.GetLength(1);
                     Stack<int[,]> Stack = new();
-                    int[,] RotatedTetrimino = new int[Columns, Rows];
-                    for (int row = 0; row < Rows; row++)
+                    //int[,] RotatedTetrimino = new int[Columns, Rows];
+                    int N = GameLoop.RunningTetriminoInstance.Shape!.GetLength(0);
+                    int[,] RotatedTetrimino = new int[N, N];
+
+                    for (int oldY = 0; oldY < N; oldY++)
                     {
-                        for (int col = 0; col < Columns; col++)
+                        for (int oldX = 0; oldX < N; oldX++)
                         {
-                            RotatedTetrimino[col, Rows - 1 - row] = GameLoop.RunningTetriminoInstance.Shape[row, col];
+                            int newY = N - 1 - oldX;
+                            int newX = oldY;
+                            RotatedTetrimino[newX, newY] = GameLoop.RunningTetriminoInstance.Shape[oldX, oldY];
                         }
                     }
                     Stack.Push(GameLoop.RunningTetriminoInstance.Shape);

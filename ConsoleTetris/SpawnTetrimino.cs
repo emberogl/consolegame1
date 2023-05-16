@@ -53,7 +53,12 @@
     {
         public I(int x, int y) : base(x, y)
         {
-            Shape = new int[,] { { 1, 1, 1, 1 } };
+            Shape = new int[,] {
+            { 0, 0, 1, 0 },
+            { 0, 0, 1, 0 },
+            { 0, 0, 1, 0 },
+            { 0, 0, 1, 0 }
+        };
             Color = ConsoleColor.Cyan;
         }
     }
@@ -62,7 +67,11 @@
     {
         public J(int x, int y) : base(x, y)
         {
-            Shape = new int[,] { { 1, 0, 0 }, { 1, 1, 1 } };
+            Shape = new int[,] {
+            { 1, 0, 0 },
+            { 1, 1, 1 },
+            { 0, 0, 0 }
+        };
             Color = ConsoleColor.Blue;
         }
     }
@@ -71,7 +80,11 @@
     {
         public L(int x, int y) : base(x, y)
         {
-            Shape = new int[,] { { 0, 0, 1 }, { 1, 1, 1 } };
+            Shape = new int[,] {
+            { 0, 0, 1 },
+            { 1, 1, 1 },
+            { 0, 0, 0 }
+        };
             Color = ConsoleColor.Magenta;
         }
     }
@@ -86,29 +99,41 @@
     }
 
     public class S : Tetrimino
+{
+    public S(int x, int y) : base(x, y)
     {
-        public S(int x, int y) : base(x, y)
-        {
-            Shape = new int[,] { { 0, 1, 1 }, { 1, 1, 0 } };
-            Color = ConsoleColor.Green;
-        }
+        Shape = new int[,] {
+            { 0, 1, 1 },
+            { 1, 1, 0 },
+            { 0, 0, 0 }
+        };
+        Color = ConsoleColor.Green;
     }
+}
 
-    public class T : Tetrimino
+public class T : Tetrimino
+{
+    public T(int x, int y) : base(x, y)
     {
-        public T(int x, int y) : base(x, y)
-        {
-            Shape = new int[,] { { 0, 1, 0 }, { 1, 1, 1 } };
-            Color = ConsoleColor.DarkMagenta;
-        }
+        Shape = new int[,] {
+            { 0, 1, 0 },
+            { 1, 1, 1 },
+            { 0, 0, 0 }
+        };
+        Color = ConsoleColor.DarkMagenta;
     }
+}
 
-    public class Z : Tetrimino
+public class Z : Tetrimino
+{
+    public Z(int x, int y) : base(x, y)
     {
-        public Z(int x, int y) : base(x, y)
-        {
-            Shape = new int[,] { { 1, 1, 0 }, { 0, 1, 1 } };
-            Color = ConsoleColor.Red;
-        }
+        Shape = new int[,] {
+            { 1, 1, 0 },
+            { 0, 1, 1 },
+            { 0, 0, 0 }
+        };
+        Color = ConsoleColor.Red;
     }
+}
 }
