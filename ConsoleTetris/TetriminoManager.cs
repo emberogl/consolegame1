@@ -27,6 +27,7 @@
             GameLoop.RunningTetriminoInstance = newTetrimino;
             Game.UpdateQueue();
             Game.Print(Game.Board!, printqueue: true);
+            Task.Run(() => ClearManager.Clear());
         }
 
     }

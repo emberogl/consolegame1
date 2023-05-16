@@ -19,6 +19,7 @@
         public static string TetriminoASCII { get; } = "[]";
         public static string[,]? Board { get; set; }
         public static int Score { get; set; } = 0;
+        public static int Lines { get; set; } = 0;
         public static List<PlacedTetrimino> PlacedTetriminos { get; set; } = new List<PlacedTetrimino>();
 
         //---------------------------------------------//
@@ -26,7 +27,7 @@
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.Title = "Tetris";
-            Console.SetWindowSize(55, DisplayRow);
+            Console.SetWindowSize(90, DisplayRow);
             ConsoleFontSize.SetConsoleFontSize(30);
             Console.CursorVisible = false;
             InitializeScoreDisplay();
@@ -104,7 +105,7 @@
 
         public static void UpdateScoreDisplay()
         {
-            string scoreString = $"Score: {Score}";
+            string scoreString = $"Score: {Score} Lines: {Lines}";
 
             for (int col = 0; col < scoreString.Length; col++)
             {
@@ -160,15 +161,12 @@
                                     }
                                 }
                             }
-
                             Console.SetCursorPosition(col * 2, row);
                             Console.Write(board[row, col]);
                             Console.ResetColor();
                         }
-
                         Console.SetCursorPosition(DisplayCol * 2, row);
                         Console.Write("[]");
-
                     }
                 }
                 if (printqueue)

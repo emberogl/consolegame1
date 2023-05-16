@@ -139,7 +139,6 @@
                     _();
                 }
             }
-
         }
 
         public static bool IsOutOfBound(int[,] tetrimino, string[,] board)

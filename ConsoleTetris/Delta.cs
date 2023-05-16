@@ -4,7 +4,7 @@ namespace Tetris
 {
     internal class Delta
     {
-        public static double Velocity { get; set; } = 0;
+        public static double Velocity { get; set; } = 0; // delta reduction for how fast tetrimino should fall
         public static void TimeDelta()
         {
             Stopwatch stopwatch = new();
