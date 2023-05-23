@@ -154,13 +154,20 @@
                             {
                                 foreach (PlacedTetrimino placedTetrimino in PlacedTetriminos.ToList())
                                 {
-                                    if (placedTetrimino.X == col && placedTetrimino.Y == row)
+                                    for (int i = 0; i < placedTetrimino.Shape.GetLength(0); i++)
                                     {
-                                        Console.ForegroundColor = placedTetrimino.Color;
-                                        break;
+                                        for (int j = 0; j < placedTetrimino.Shape.GetLength(1); j++)
+                                        {
+                                            if (placedTetrimino.Shape[i, j] == 1 && placedTetrimino.Y + i == row && placedTetrimino.X + j == col)
+                                            {
+                                                Console.ForegroundColor = placedTetrimino.Color;
+                                                break;
+                                            }
+                                        }
                                     }
                                 }
                             }
+
                             Console.SetCursorPosition(col * 2, row);
                             Console.Write(board[row, col]);
                             Console.ResetColor();

@@ -17,10 +17,11 @@
                         int Col = currentTetrimino.X + col;
 
                         Game.Board![Row, Col] = Game.TetriminoASCII;
-                        Game.PlacedTetriminos.Add(new PlacedTetrimino(Col, Row, currentTetrimino.Color));
                     }
                 }
             }
+
+            Game.PlacedTetriminos.Add(new PlacedTetrimino(currentTetrimino.X, currentTetrimino.Y, currentTetrimino.Color, currentTetrimino.Shape));
 
             Tetrimino newTetrimino = TetriminoQueue.FirstInQueue!;
             newTetrimino.IsActive = true;
@@ -36,12 +37,13 @@
         public int X { get; set; }
         public int Y { get; set; }
         public ConsoleColor Color { get; set; }
-
-        public PlacedTetrimino(int x, int y, ConsoleColor color)
+        public int[,] Shape { get; set; }
+        public PlacedTetrimino(int x, int y, ConsoleColor color, int[,] shape)
         {
             X = x;
             Y = y;
             Color = color;
+            Shape = shape;
         }
     }
 }

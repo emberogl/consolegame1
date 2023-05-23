@@ -54,10 +54,10 @@
         public I(int x, int y) : base(x, y)
         {
             Shape = new int[,] {
-            { 0, 0, 1, 0 },
-            { 0, 0, 1, 0 },
-            { 0, 0, 1, 0 },
-            { 0, 0, 1, 0 }
+            { 0, 0, 0, 0 },
+            { 1, 1, 1, 1 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 }
         };
             Color = ConsoleColor.Cyan;
         }
