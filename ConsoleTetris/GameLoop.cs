@@ -23,6 +23,7 @@
                 {
                     TetriminoManager.CycleComplete();
                 }
+                Task.Run(() => ClearManager.Clear());
             }
         }
         public static void DrawTetriminoOnBoard(Tetrimino tetrimino, string[,] board)
@@ -44,7 +45,45 @@
                 }
             }
         }
+        public static void DrawTetriminoOnBoard(PlacedTetrimino tetrimino, string[,] board)
+        {
+            for (int row = 0; row < tetrimino.Shape?.GetLength(0); row++)
+            {
+                for (int col = 0; col < tetrimino.Shape.GetLength(1); col++)
+                {
+                    if (tetrimino.Shape[row, col] == 1)
+                    {
+                        int Row = tetrimino.Y + row;
+                        int Col = tetrimino.X + col;
+
+                        if (!Controller.IsOutOfBound(tetrimino.Shape, board))
+                        {
+                            board[Row, Col] = Game.TetriminoASCII;
+                        }
+                    }
+                }
+            }
+        }
         public static void EraseTetriminoFromBoard(Tetrimino tetrimino, string[,] board)
+        {
+            for (int row = 0; row < tetrimino.Shape!.GetLength(0); row++)
+            {
+                for (int col = 0; col < tetrimino.Shape.GetLength(1); col++)
+                {
+                    if (tetrimino.Shape[row, col] == 1)
+                    {
+                        int Row = tetrimino.Y + row;
+                        int Col = tetrimino.X + col;
+
+                        if (Row >= 0 && Row < board.GetLength(0))
+                        {
+                            board[Row, Col] = Game.BoardASCII;
+                        }
+                    }
+                }
+            }
+        }
+        public static void EraseTetriminoFromBoard(PlacedTetrimino tetrimino, string[,] board)
         {
             for (int row = 0; row < tetrimino.Shape!.GetLength(0); row++)
             {

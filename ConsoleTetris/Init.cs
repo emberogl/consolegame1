@@ -33,6 +33,7 @@
             InitializeScoreDisplay();
             InitializeTimer();
             InitializeElapseTimer();
+            Task.Run(() => Gravity.Watch());
             Task.Run(() => GameLoop.LoopBegin());
             Controller._();
         }
@@ -154,14 +155,17 @@
                             {
                                 foreach (PlacedTetrimino placedTetrimino in PlacedTetriminos.ToList())
                                 {
-                                    for (int i = 0; i < placedTetrimino.Shape.GetLength(0); i++)
+                                    if (placedTetrimino != null)
                                     {
-                                        for (int j = 0; j < placedTetrimino.Shape.GetLength(1); j++)
+                                        for (int i = 0; i < placedTetrimino.Shape.GetLength(0); i++)
                                         {
-                                            if (placedTetrimino.Shape[i, j] == 1 && placedTetrimino.Y + i == row && placedTetrimino.X + j == col)
+                                            for (int j = 0; j < placedTetrimino.Shape.GetLength(1); j++)
                                             {
-                                                Console.ForegroundColor = placedTetrimino.Color;
-                                                break;
+                                                if (placedTetrimino.Shape[i, j] == 1 && placedTetrimino.Y + i == row && placedTetrimino.X + j == col)
+                                                {
+                                                    Console.ForegroundColor = placedTetrimino.Color;
+                                                    break;
+                                                }
                                             }
                                         }
                                     }

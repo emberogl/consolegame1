@@ -4,9 +4,10 @@ namespace Tetris
 {
     internal class Delta
     {
-        public static double Velocity { get; set; } = 0; // delta reduction for how fast tetrimino should fall
+        public static double Velocity { get; set; }
         public static void TimeDelta()
         {
+            Velocity = Math.Max((-Game.Lines) / 100.0, -1.0);
             Stopwatch stopwatch = new();
             stopwatch.Start();
 
@@ -31,7 +32,6 @@ namespace Tetris
                 Game.Print(Game.Board!, printdelta: true);
             }
 
-            Game.Time = 0.0;
-        }
+            Game.Time = 0.0;        }
     }
 }
