@@ -17,7 +17,7 @@
                             GameLoop.DrawTetriminoOnBoard(tetrimino, Game.Board!);
                         }
                     }
-                    Thread.Sleep(500);
+                    Thread.Sleep(100);
                 }
             }
         }
