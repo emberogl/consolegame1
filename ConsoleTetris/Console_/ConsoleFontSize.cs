@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace Tetris
+namespace Tetris.Console_
 {
     internal class ConsoleFontSize
     {

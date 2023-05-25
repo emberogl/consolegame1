@@ -1,4 +1,6 @@
-﻿namespace Tetris
+﻿using Tetris.Inits;
+
+namespace Tetris.Tetrimino_
 {
     internal class TetriminoQueue
     {
@@ -16,7 +18,7 @@
             }
             else if (Queue.Count == 2)
             {
-                    Queue.Add(Tetrimino.NewTetrimino(Tetrimino.Select.Next(1, 6), -1));
+                Queue.Add(Tetrimino.NewTetrimino(Tetrimino.Select.Next(1, 6), -1));
             }
         }
         public static void StartQueue()

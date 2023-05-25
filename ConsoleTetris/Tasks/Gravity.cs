@@ -1,12 +1,19 @@
-﻿namespace Tetris
+﻿using Tetris.Inits;
+using Tetris.Tetrimino_;
+
+namespace Tetris.Tasks
 {
     internal class Gravity
     {
-        public static void Watch() 
-        { 
-            while (true) 
+        public static void Watch(CancellationToken token)
+        {
+            while (true)
             {
-                if (Game.PlacedTetriminos.Count != 0) 
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+                if (Game.PlacedTetriminos.Count != 0)
                 {
                     foreach (PlacedTetrimino tetrimino in Game.PlacedTetriminos)
                     {

@@ -1,9 +1,14 @@
-﻿namespace Tetris
+﻿using Tetris.Events;
+using Tetris.Inits;
+using Tetris.Tasks;
+
+namespace Tetris.Tetrimino_
 {
     internal class TetriminoManager
     {
         public static void CycleComplete()
         {
+            JSON.CheckGameEnd();
             TetriminoQueue.StartQueue();
             Tetrimino currentTetrimino = GameLoop.RunningTetriminoInstance!;
 
@@ -27,7 +32,7 @@
             newTetrimino.IsActive = true;
             GameLoop.RunningTetriminoInstance = newTetrimino;
             Game.UpdateQueue();
-            Game.Print(Game.Board!, printqueue: true);
+            Printer.Print(Game.Board!, printqueue: true);
         }
 
     }

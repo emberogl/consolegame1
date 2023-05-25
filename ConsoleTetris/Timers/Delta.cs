@@ -1,13 +1,15 @@
 ﻿using System.Diagnostics;
+using Tetris.Events;
+using Tetris.Inits;
 
-namespace Tetris
+namespace Tetris.Timers
 {
     internal class Delta
     {
         public static double Velocity { get; set; }
-        public static void TimeDelta()
+        public static void TimeDelta(CancellationToken token)
         {
-            Velocity = Math.Max((-Game.Lines) / 100.0, -1.0);
+            Velocity = Math.Max(-Game.Lines / 100.0, -1.0);
             Stopwatch stopwatch = new();
             stopwatch.Start();
 
@@ -15,6 +17,10 @@ namespace Tetris
 
             while (true)
             {
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
                 Thread.Sleep(Game.DeltaValue);
 
                 double elapsedTime = stopwatch.Elapsed.TotalSeconds;
@@ -29,9 +35,10 @@ namespace Tetris
                 lastTime = elapsedTime;
 
                 Game.UpdateTimer();
-                Game.Print(Game.Board!, printdelta: true);
+                Printer.Print(Game.Board!, printdelta: true);
             }
 
-            Game.Time = 0.0;        }
+            Game.Time = 0.0;
+        }
     }
 }

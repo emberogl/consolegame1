@@ -1,4 +1,8 @@
-﻿namespace Tetris
+﻿using Tetris.Inits;
+using Tetris.Tasks;
+using Tetris.Tetrimino_;
+
+namespace Tetris.Events
 {
     internal class ClearManager
     {
@@ -13,10 +17,10 @@
                     bool isRowFilled = true;
                     for (int col = 0; col < Game.Board!.GetLength(1); col++)
                     {
-                        if (col >= GameLoop.RunningTetriminoInstance!.X && col < GameLoop.RunningTetriminoInstance!.X + GameLoop.RunningTetriminoInstance!.GetSecondDimensionLength()
-                            && row >= GameLoop.RunningTetriminoInstance!.Y && row < GameLoop.RunningTetriminoInstance!.Y + GameLoop.RunningTetriminoInstance!.GetFirstDimensionLength()
-                            && GameLoop.RunningTetriminoInstance!.Shape![row - GameLoop.RunningTetriminoInstance!.Y, col - GameLoop.RunningTetriminoInstance!.X] == 1)
-                            {
+                        if (col >= GameLoop.RunningTetriminoInstance?.X && col < GameLoop.RunningTetriminoInstance?.X + GameLoop.RunningTetriminoInstance?.GetSecondDimensionLength()
+                            && row >= GameLoop.RunningTetriminoInstance?.Y && row < GameLoop.RunningTetriminoInstance?.Y + GameLoop.RunningTetriminoInstance?.GetFirstDimensionLength()
+                            && GameLoop.RunningTetriminoInstance?.Shape![row - GameLoop.RunningTetriminoInstance.Y, col - GameLoop.RunningTetriminoInstance.X] == 1)
+                        {
                             isRowFilled = false;
                             break;
                         }
@@ -29,8 +33,8 @@
 
                     if (isRowFilled)
                     {
-                        List<PlacedTetrimino> newTetriminos = new List<PlacedTetrimino>();
-                        List<PlacedTetrimino> tetriminosToRemove = new List<PlacedTetrimino>();
+                        List<PlacedTetrimino> newTetriminos = new();
+                        List<PlacedTetrimino> tetriminosToRemove = new();
 
                         foreach (PlacedTetrimino tetrimino in Game.PlacedTetriminos.ToArray()) // Copy the list for iteration
                         {
@@ -85,7 +89,7 @@
                         Game.Score += 100;
                         Game.Lines += 1;
                         Game.UpdateScoreDisplay();
-                        Game.Print(Game.Board!, printscore: true);
+                        Printer.Print(Game.Board!, printscore: true);
                     }
                 }
             } while (lineCleared);

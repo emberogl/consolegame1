@@ -1,4 +1,4 @@
-﻿namespace Tetris
+﻿namespace Tetris.Tetrimino_
 {
     public abstract class Tetrimino
     {
@@ -30,7 +30,7 @@
             int randomTetrimino;
             do
             {
-              randomTetrimino = Select.Next(0, 7);
+                randomTetrimino = Select.Next(0, 7);
             } while (lastTetrimino == randomTetrimino);
 
             lastTetrimino = randomTetrimino;
@@ -99,41 +99,41 @@
     }
 
     public class S : Tetrimino
-{
-    public S(int x, int y) : base(x, y)
     {
-        Shape = new int[,] {
+        public S(int x, int y) : base(x, y)
+        {
+            Shape = new int[,] {
             { 0, 1, 1 },
             { 1, 1, 0 },
             { 0, 0, 0 }
         };
-        Color = ConsoleColor.Green;
+            Color = ConsoleColor.Green;
+        }
     }
-}
 
-public class T : Tetrimino
-{
-    public T(int x, int y) : base(x, y)
+    public class T : Tetrimino
     {
-        Shape = new int[,] {
+        public T(int x, int y) : base(x, y)
+        {
+            Shape = new int[,] {
             { 0, 1, 0 },
             { 1, 1, 1 },
             { 0, 0, 0 }
         };
-        Color = ConsoleColor.DarkMagenta;
+            Color = ConsoleColor.DarkMagenta;
+        }
     }
-}
 
-public class Z : Tetrimino
-{
-    public Z(int x, int y) : base(x, y)
+    public class Z : Tetrimino
     {
-        Shape = new int[,] {
+        public Z(int x, int y) : base(x, y)
+        {
+            Shape = new int[,] {
             { 1, 1, 0 },
             { 0, 1, 1 },
             { 0, 0, 0 }
         };
-        Color = ConsoleColor.Red;
+            Color = ConsoleColor.Red;
+        }
     }
-}
 }

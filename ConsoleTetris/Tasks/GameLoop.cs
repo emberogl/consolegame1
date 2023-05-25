@@ -1,24 +1,34 @@
-﻿namespace Tetris
+﻿using Tetris.Events;
+using Tetris.Inits;
+using Tetris.Tetrimino_;
+using Tetris.Timers;
+
+namespace Tetris.Tasks
 {
     internal class GameLoop
     {
         public static Tetrimino? RunningTetriminoInstance { get; set; }
-        public static void LoopBegin()
+        public static void LoopBegin(CancellationToken token)
         {
-            Task.Run(() => Timer.ElapseTimer());
+            Task t1 = Task.Run(() => Timers.Timer.ElapseTimer(Game.Cts!.Token), Game.Cts!.Token);
             DrawBoard();
             Game.UpdateScoreDisplay();
             TetriminoQueue.StartQueue();
             Tetrimino tetrimino = TetriminoQueue.FirstInQueue!; tetrimino.IsActive = true;
             RunningTetriminoInstance = tetrimino;
-            Game.Print(Game.Board!, printqueue: true, printscore: true);
+            Printer.Print(Game.Board!, printqueue: true, printscore: true);
             while (true)
             {
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
                 EraseTetriminoFromBoard(RunningTetriminoInstance, Game.Board!);
                 RunningTetriminoInstance.Y += 1;
                 DrawTetriminoOnBoard(RunningTetriminoInstance, Game.Board!);
-                Game.Print(Game.Board!, true);
-                Delta.TimeDelta();
+                JSON.CheckGameEnd();
+                Printer.Print(Game.Board!, true);
+                Delta.TimeDelta(Game.Cts.Token);
                 if (Controller.HasCollided(RunningTetriminoInstance.Shape!, Game.Board!, 1, 0))
                 {
                     TetriminoManager.CycleComplete();
@@ -115,7 +125,7 @@
             }
             for (int col = 0; col < Game.DisplayCol; col++)
             {
-                Game.Board[Game.DisplayRow - 1, col] = "[]";            
+                Game.Board[Game.DisplayRow - 1, col] = "[]";
             }
         }
     }

@@ -1,8 +1,12 @@
-﻿namespace Tetris
+﻿using Tetris.Events;
+using Tetris.Inits;
+using Tetris.Tetrimino_;
+
+namespace Tetris.Tasks
 {
     internal static class Controller
     {
-        public static void _()
+        public static void _(CancellationToken token)
         {
             while (Console.KeyAvailable)
             {
@@ -13,25 +17,29 @@
             switch (CKey.Key)
             {
                 case ConsoleKey.LeftArrow:
-                    MoveLeft();
+                    MoveLeft(token);
                     break;
                 case ConsoleKey.RightArrow:
-                    MoveRight();
+                    MoveRight(token);
                     break;
                 case ConsoleKey.DownArrow:
-                    MoveDown();
+                    MoveDown(token);
                     break;
                 case ConsoleKey.R:
-                    Rotate();
+                    Rotate(token);
                     break;
                 default:
-                    _();
+                    _(Game.Cts!.Token);
                     break;
             }
         }
 
-        private static void MoveLeft()
+        private static void MoveLeft(CancellationToken token)
         {
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
             if (GameLoop.RunningTetriminoInstance != null && GameLoop.RunningTetriminoInstance.IsActive)
             {
                 if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 0, -1))
@@ -43,18 +51,22 @@
                         GameLoop.RunningTetriminoInstance.X += 1;
                     }
                     GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    Game.Print(Game.Board!, true);
-                    _();
+                    Printer.Print(Game.Board!, true);
+                    _(Game.Cts!.Token);
                 }
                 else
                 {
-                    _();
+                    _(Game.Cts!.Token);
                 }
             }
         }
 
-        private static void MoveRight()
+        private static void MoveRight(CancellationToken token)
         {
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
             if (GameLoop.RunningTetriminoInstance != null && GameLoop.RunningTetriminoInstance.IsActive)
             {
                 if (!HasCollided(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!, 0, 1))
@@ -66,17 +78,21 @@
                         GameLoop.RunningTetriminoInstance.X -= 1;
                     }
                     GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    Game.Print(Game.Board!, true);
-                    _();
+                    Printer.Print(Game.Board!, true);
+                    _(Game.Cts!.Token);
                 }
                 else
                 {
-                    _();
+                    _(Game.Cts!.Token);
                 }
             }
         }
-        private static void MoveDown()
+        private static void MoveDown(CancellationToken token)
         {
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
             if (GameLoop.RunningTetriminoInstance != null)
             {
                 if (GameLoop.RunningTetriminoInstance.IsActive)
@@ -85,7 +101,7 @@
                     {
                         Game.Score += 2;
                         Game.UpdateScoreDisplay();
-                        Game.Print(Game.Board!, printscore: true);
+                        Printer.Print(Game.Board!, printscore: true);
                         GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         GameLoop.RunningTetriminoInstance.Y += 1;
                         if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!))
@@ -93,8 +109,8 @@
                             GameLoop.RunningTetriminoInstance.Y -= 1;
                         }
                         GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                        Game.Print(Game.Board!, true);
-                        _();
+                        Printer.Print(Game.Board!, true);
+                        _(Game.Cts!.Token);
                     }
                     else
                     {
@@ -102,15 +118,19 @@
                         GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         GameLoop.RunningTetriminoInstance.Y += 1;
                         GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                        Game.Print(Game.Board!, true);
-                        _();
+                        Printer.Print(Game.Board!, true);
+                        _(Game.Cts!.Token);
                     }
                 }
             }
         }
 
-        public static void Rotate()
+        public static void Rotate(CancellationToken token)
         {
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
             if (GameLoop.RunningTetriminoInstance != null)
             {
                 if (GameLoop.RunningTetriminoInstance.IsActive)
@@ -140,8 +160,8 @@
                     GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                     GameLoop.RunningTetriminoInstance.Shape = Stack.Peek();
                     GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
-                    Game.Print(Game.Board!, true);
-                    _();
+                    Printer.Print(Game.Board!, true);
+                    _(Game.Cts!.Token);
                 }
             }
         }
