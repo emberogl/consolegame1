@@ -8,9 +8,9 @@ namespace Tetris.Tasks
     internal class GameLoop
     {
         public static Tetrimino? RunningTetriminoInstance { get; set; }
-        public static void LoopBegin(CancellationToken token)
+        public static void LoopBegin()
         {
-            Task t1 = Task.Run(() => Timers.Timer.ElapseTimer(Game.Cts!.Token), Game.Cts!.Token);
+            Task.Run(() => Timers.Timer.ElapseTimer());
             DrawBoard();
             Game.UpdateScoreDisplay();
             TetriminoQueue.StartQueue();
@@ -19,16 +19,12 @@ namespace Tetris.Tasks
             Printer.Print(Game.Board!, printqueue: true, printscore: true);
             while (true)
             {
-                if (token.IsCancellationRequested)
-                {
-                    return;
-                }
                 EraseTetriminoFromBoard(RunningTetriminoInstance, Game.Board!);
                 RunningTetriminoInstance.Y += 1;
                 DrawTetriminoOnBoard(RunningTetriminoInstance, Game.Board!);
                 JSON.CheckGameEnd();
                 Printer.Print(Game.Board!, true);
-                Delta.TimeDelta(Game.Cts.Token);
+                Delta.TimeDelta();
                 if (Controller.HasCollided(RunningTetriminoInstance.Shape!, Game.Board!, 1, 0))
                 {
                     TetriminoManager.CycleComplete();

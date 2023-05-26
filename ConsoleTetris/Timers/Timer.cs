@@ -6,16 +6,11 @@ namespace Tetris.Timers
 {
     internal class Timer
     {
-        public static void ElapseTimer(CancellationToken token)
+        public static void ElapseTimer()
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             while (true)
             {
-                if (token.IsCancellationRequested)
-                {
-                    Console.Clear();
-                    return;
-                }
                 TimeSpan elapsedTime = stopwatch.Elapsed;
                 Game.Elapse = $"{(int)elapsedTime.TotalHours:00}:{elapsedTime:mm\\:ss}";
                 Game.UpdateElapseTimer();

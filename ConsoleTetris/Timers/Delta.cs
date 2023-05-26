@@ -7,7 +7,7 @@ namespace Tetris.Timers
     internal class Delta
     {
         public static double Velocity { get; set; }
-        public static void TimeDelta(CancellationToken token)
+        public static void TimeDelta()
         {
             Velocity = Math.Max(-Game.Lines / 100.0, -1.0);
             Stopwatch stopwatch = new();
@@ -17,10 +17,6 @@ namespace Tetris.Timers
 
             while (true)
             {
-                if (token.IsCancellationRequested)
-                {
-                    return;
-                }
                 Thread.Sleep(Game.DeltaValue);
 
                 double elapsedTime = stopwatch.Elapsed.TotalSeconds;

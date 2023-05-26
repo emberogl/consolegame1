@@ -135,7 +135,7 @@ namespace Tetris.Events
                     {
                         rowAsString += board[8, col];
                     }
-                    if (Menu.selectedButton == 0)
+                    if (Menu.SelectedButton == 0)
                     {
                         if (rowAsString.Contains("[PLAY]"))
                         {

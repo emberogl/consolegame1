@@ -24,18 +24,15 @@ namespace Tetris.Inits
         public static int Score { get; set; } = 0;
         public static int Lines { get; set; } = 0;
         public static List<PlacedTetrimino> PlacedTetriminos { get; set; } = new List<PlacedTetrimino>();
-        public static CancellationTokenSource? Cts { get; set; }
-
         //---------------------------------------------//
         public static void Start()
         {
-            Cts = new();
             InitializeScoreDisplay();
             InitializeTimer();
             InitializeElapseTimer();
-            Task t1 = Task.Run(() => Gravity.Watch(Cts.Token), Cts.Token);
-            Task t2 = Task.Run(() => GameLoop.LoopBegin(Cts.Token), Cts.Token);
-            Controller._(Cts.Token);
+            Task.Run(() => Gravity.Watch());
+            Task.Run(() => GameLoop.LoopBegin());
+            Controller._();
         }
         private static void InitializeTimer()
         {

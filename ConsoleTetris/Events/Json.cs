@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using System.Text.Json;
 using Tetris.Inits;
 using Tetris.Tasks;
@@ -10,10 +11,10 @@ namespace Tetris.Events
     {
         public class Scores
         {
-            public int highscore { get; set; }
-            public int highlines { get; set; }
-            public int lastscore { get; set; }
-            public int lastlines { get; set; }
+            public int Highscore { get; set; }
+            public int Highlines { get; set; }
+            public int Lastscore { get; set; }
+            public int Lastlines { get; set; }
         }
 
         public static void CheckGameEnd()
@@ -21,32 +22,29 @@ namespace Tetris.Events
             if (Controller.HasCollided(GameLoop.RunningTetriminoInstance?.Shape!, Game.Board!, 1, 0) &&
                 Controller.HasCollided(GameLoop.RunningTetriminoInstance?.Shape!, Game.Board!, -1, 0))
             {
-
-                Game.Cts!.Cancel();
-
-                Scores scores = new() { highscore = 0, highlines = 0, lastscore = 0, lastlines = 0 };
+                Scores scores = new() { Highscore = 0, Highlines = 0, Lastscore = 0, Lastlines = 0 };
 
 
                 if (Game.Score > Menu.HighScore)
                 {
-                    scores.highscore = Game.Score;
-                    scores.lastscore = Game.Score;
+                    scores.Highscore = Game.Score;
+                    scores.Lastscore = Game.Score;
                 }
                 else
                 {
-                    scores.highscore = Menu.HighScore;
-                    scores.lastscore = Game.Score;
+                    scores.Highscore = Menu.HighScore;
+                    scores.Lastscore = Game.Score;
                 }
 
                 if (Game.Lines > Menu.HighLines)
                 {
-                    scores.highlines = Game.Lines;
-                    scores.lastlines = Game.Lines;
+                    scores.Highlines = Game.Lines;
+                    scores.Lastlines = Game.Lines;
                 }
                 else
                 {
-                    scores.highlines = Menu.HighLines;
-                    scores.lastlines = Game.Lines;
+                    scores.Highlines = Menu.HighLines;
+                    scores.Lastlines = Game.Lines;
                 }
 
                 string jsonString = JsonSerializer.Serialize(scores);
@@ -65,7 +63,10 @@ namespace Tetris.Events
                 Game.Lines = 0; Game.Score = 0; Game.PlacedTetriminos.Clear(); Game.Time = 0.0; Game.DeltaValue = 50;
                 Game.Board = null; Game.Elapse = null; Delta.Velocity = 0;
 
-                Menu.Main();
+                try { Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                      Path.GetFileName(Process.GetCurrentProcess().MainModule!.FileName!)));
+                } catch (Exception) { }
+                Environment.Exit(0);
             }
         }
     }

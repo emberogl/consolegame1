@@ -5,14 +5,10 @@ namespace Tetris.Tasks
 {
     internal class Gravity
     {
-        public static void Watch(CancellationToken token)
+        public static void Watch()
         {
             while (true)
             {
-                if (token.IsCancellationRequested)
-                {
-                    return;
-                }
                 if (Game.PlacedTetriminos.Count != 0)
                 {
                     foreach (PlacedTetrimino tetrimino in Game.PlacedTetriminos)

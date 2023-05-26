@@ -10,7 +10,7 @@ namespace Tetris.Inits
         public static char[] logo = "TETRIS".ToArray();
         public static char[] play = "[PLAY]".ToArray();
         public static char[] exit = "[EXIT]".ToArray();
-        public static int selectedButton { get; set; } = 0;
+        public static int SelectedButton { get; set; } = 0;
         public static int LastScore { get; set; } = 0;
         public static int LastLines { get; set; } = 0;
         public static int HighScore { get; set; } = 0;
@@ -20,6 +20,7 @@ namespace Tetris.Inits
         public static string[,] UI = new string[rows, cols];
         public static void Main()
         {
+            SelectedButton = 0;
             Console.Clear();
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.Title = "Tetris";
@@ -28,7 +29,6 @@ namespace Tetris.Inits
             Console.CursorVisible = false;
             Initialize();
             ScoreScan();
-            Thread.Sleep(100000);
         }
         public static void Initialize()
         {
@@ -87,7 +87,7 @@ namespace Tetris.Inits
                     LastLines = lastlinesjson.GetInt32();
                 }
             }
-            catch (Exception) { }
+            catch (Exception) {};
             string highscore = $"HIGHSCORE: {HighScore} POINTS {HighLines} LINES";
             string lastscore = $"LAST SCORE: {LastScore} POINTS {LastLines} LINES";
             for (int col = 0; col < highscore.Length; col++)
@@ -104,39 +104,36 @@ namespace Tetris.Inits
 
         public static void _()
         {
-            while (Console.KeyAvailable)
+            while (true)
             {
-                Console.ReadKey(true);
-            }
-
-            var CKey = Console.ReadKey(true);
-            switch (CKey.Key)
-            {
-                case ConsoleKey.LeftArrow:
-                    selectedButton = 0;
-                    Printer.Print(UI, printmenu: true);
-                    _();
-                    break;
-                case ConsoleKey.RightArrow:
-                    selectedButton = 1;
-                    Printer.Print(UI, printmenu: true);
-                    _();
-                    break;
-                case ConsoleKey.Enter:
-                    if (selectedButton == 0)
-                    {
-                        Console.Clear();
-                        Game.Start();
-                    }
-                    else
-                    {
-                        Environment.Exit(0);
-                    }
-                    break;
-                default:
-                    _();
-                    break;
+                var CKey = Console.ReadKey(true);
+                switch (CKey.Key)
+                {
+                    case ConsoleKey.LeftArrow:
+                        SelectedButton = 0;
+                        Printer.Print(UI, printmenu: true);
+                        continue;
+                    case ConsoleKey.RightArrow:
+                        SelectedButton = 1;
+                        Printer.Print(UI, printmenu: true);
+                        continue;
+                    case ConsoleKey.Enter:
+                        if (SelectedButton == 0)
+                        {
+                            Console.Clear();
+                            Game.Start();
+                        }
+                        else
+                        {
+                            Environment.Exit(0);
+                        }
+                        break;
+                    default:
+                        continue;
+                }
+                break;
             }
         }
+
     }
 }
