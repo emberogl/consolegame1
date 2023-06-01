@@ -61,8 +61,6 @@ namespace Tetris.Inits
         {
             try
             {
-                string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-                string filePath = Path.Combine(path, "ScoreData.json");
                 string json;
 
                 using (StreamReader sr = new(JSON.jsonPath))

@@ -18,7 +18,7 @@ namespace Tetris.Events
         public static readonly string jsonPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ScoreData.json");
         public static void CheckGameEnd()
         {
-            if (Controller.HasCollided(GameLoop.RunningTetriminoInstance?.Shape!, Game.Board!, 1, 0) &&
+            if (Controller.HasCollided(GameLoop.RunningTetriminoInstance?.Shape!, Game.Board!, 2, 0) &&
                 Controller.HasCollided(GameLoop.RunningTetriminoInstance?.Shape!, Game.Board!, -1, 0))
             {
                 Scores scores = new() { Highscore = 0, Highlines = 0, Lastscore = 0, Lastlines = 0 };
@@ -53,9 +53,9 @@ namespace Tetris.Events
                     using StreamWriter sw = new(jsonPath);
                     sw.Write(jsonString);
                 }
-                catch (Exception ex) { Debug.WriteLine(ex.ToString()); }
+                catch (Exception) { }
 
-                try { Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                try { Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!,
                       Path.GetFileName(Environment.ProcessPath!)));
                 } catch (Exception) { }
                 Environment.Exit(0);
