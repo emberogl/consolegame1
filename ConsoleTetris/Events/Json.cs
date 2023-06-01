@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Text.Json;
 using Tetris.Inits;
 using Tetris.Tasks;
-using Tetris.Timers;
 
 namespace Tetris.Events
 {
@@ -16,7 +15,7 @@ namespace Tetris.Events
             public int Lastscore { get; set; }
             public int Lastlines { get; set; }
         }
-
+        public static readonly string jsonPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ScoreData.json");
         public static void CheckGameEnd()
         {
             if (Controller.HasCollided(GameLoop.RunningTetriminoInstance?.Shape!, Game.Board!, 1, 0) &&
@@ -51,20 +50,13 @@ namespace Tetris.Events
 
                 try
                 {
-                    string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-                    string filePath = Path.Combine(path, "ScoreData.json");
-                    using (StreamWriter sw = new(filePath))
-                    {
-                        sw.Write(jsonString);
-                    }
+                    using StreamWriter sw = new(jsonPath);
+                    sw.Write(jsonString);
                 }
-                catch (Exception) { }
-
-                Game.Lines = 0; Game.Score = 0; Game.PlacedTetriminos.Clear(); Game.Time = 0.0; Game.DeltaValue = 50;
-                Game.Board = null; Game.Elapse = null; Delta.Velocity = 0;
+                catch (Exception ex) { Debug.WriteLine(ex.ToString()); }
 
                 try { Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                      Path.GetFileName(Process.GetCurrentProcess().MainModule!.FileName!)));
+                      Path.GetFileName(Environment.ProcessPath!)));
                 } catch (Exception) { }
                 Environment.Exit(0);
             }

@@ -65,24 +65,24 @@ namespace Tetris.Inits
                 string filePath = Path.Combine(path, "ScoreData.json");
                 string json;
 
-                using (StreamReader sr = new(filePath))
+                using (StreamReader sr = new(JSON.jsonPath))
                 {
                     json = sr.ReadToEnd();
                 }
                 JsonDocument doc = JsonDocument.Parse(json);
-                if (doc.RootElement.TryGetProperty("highscore", out JsonElement highscorejson))
+                if (doc.RootElement.TryGetProperty("Highscore", out JsonElement highscorejson))
                 {
                     HighScore = highscorejson.GetInt32();
                 }
-                if (doc.RootElement.TryGetProperty("highlines", out JsonElement highlinesjson))
+                if (doc.RootElement.TryGetProperty("Highlines", out JsonElement highlinesjson))
                 {
                     HighLines = highlinesjson.GetInt32();
                 }
-                if (doc.RootElement.TryGetProperty("lastscore", out JsonElement lastscorejson))
+                if (doc.RootElement.TryGetProperty("Lastscore", out JsonElement lastscorejson))
                 {
                     LastScore = lastscorejson.GetInt32();
                 }
-                if (doc.RootElement.TryGetProperty("lastlines", out JsonElement lastlinesjson))
+                if (doc.RootElement.TryGetProperty("Lastlines", out JsonElement lastlinesjson))
                 {
                     LastLines = lastlinesjson.GetInt32();
                 }
