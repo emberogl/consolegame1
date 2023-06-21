@@ -15,9 +15,11 @@ namespace Tetris.Events
             public int Lastscore { get; set; }
             public int Lastlines { get; set; }
         }
+        // Gemmer score og lines i dokumenter som json
         public static readonly string jsonPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ScoreData.json");
         public static void CheckGameEnd()
         {
+            // Tjekker om spillet er færdigt
             if (Controller.HasCollided(GameLoop.RunningTetriminoInstance?.Shape!, Game.Board!, 2, 0) &&
                 Controller.HasCollided(GameLoop.RunningTetriminoInstance?.Shape!, Game.Board!, -1, 0))
             {

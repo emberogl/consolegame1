@@ -11,10 +11,12 @@ namespace Tetris.Inits
         public static char[] play = "[PLAY]".ToArray();
         public static char[] exit = "[EXIT]".ToArray();
         public static int SelectedButton { get; set; } = 0;
+        // Information der skal gemmes til harddisk
         public static int LastScore { get; set; } = 0;
         public static int LastLines { get; set; } = 0;
         public static int HighScore { get; set; } = 0;
         public static int HighLines { get; set; } = 0;
+        // ----------------------------------------
         public static int rows = 16;
         public static int cols = 40;
         public static string[,] UI = new string[rows, cols];
@@ -30,6 +32,7 @@ namespace Tetris.Inits
             Initialize();
             ScoreScan();
         }
+        // UI initialisation
         public static void Initialize()
         {
             for (int row = 0; row < rows; row++)
@@ -57,6 +60,7 @@ namespace Tetris.Inits
                 UI[8, 20 + col] = exit[col].ToString();
             }
         }
+        // Indhenter data fra json filen hvis muligt
         public static void ScoreScan()
         {
             try
@@ -67,6 +71,7 @@ namespace Tetris.Inits
                 {
                     json = sr.ReadToEnd();
                 }
+                
                 JsonDocument doc = JsonDocument.Parse(json);
                 if (doc.RootElement.TryGetProperty("Highscore", out JsonElement highscorejson))
                 {
@@ -100,6 +105,7 @@ namespace Tetris.Inits
             _();
         }
 
+        // Læser brugerens indtastninger på menuen
         public static void _()
         {
             while (true)

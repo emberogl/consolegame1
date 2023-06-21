@@ -5,7 +5,7 @@ namespace Tetris.Tasks
 {
     internal class Gravity
     {
-        public static void Watch()
+        public static void Watch() // Denne metode rykker flyvende tetriminoer på boardet ned
         {
             while (true)
             {

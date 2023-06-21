@@ -6,6 +6,7 @@ namespace Tetris.Tasks
 {
     internal static class Controller
     {
+        // Input når spillet er i gang
         public static void _()
         {
             while (Console.KeyAvailable)
@@ -119,10 +120,7 @@ namespace Tetris.Tasks
             {
                 if (GameLoop.RunningTetriminoInstance.IsActive)
                 {
-                    //int Rows = GameLoop.RunningTetriminoInstance.Shape!.GetLength(0);
-                    //int Columns = GameLoop.RunningTetriminoInstance.Shape.GetLength(1);
                     Stack<int[,]> Stack = new();
-                    //int[,] RotatedTetrimino = new int[Columns, Rows];
                     int N = GameLoop.RunningTetriminoInstance.Shape!.GetLength(0);
                     int[,] RotatedTetrimino = new int[N, N];
 

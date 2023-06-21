@@ -5,6 +5,7 @@ namespace Tetris.Inits
 {
     class Game
     {
+        // Alt information programmet skal bruge til at vise spillet
         //---------------------------------------------//
         public static int DisplayRow { get; } = 21;
         public static int DisplayCol { get; } = 10;

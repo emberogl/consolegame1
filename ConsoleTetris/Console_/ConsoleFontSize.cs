@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿// Denne fil er ikke skrevet af mig men manipuleret for at få en tekst størrelse der tilpassede spillet
+
+using System.Runtime.InteropServices;
 
 namespace Tetris.Console_
 {

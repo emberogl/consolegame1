@@ -8,6 +8,7 @@ namespace Tetris.Tasks
     internal class GameLoop
     {
         public static Tetrimino? RunningTetriminoInstance { get; set; }
+        // Dette metode starter spillets loop
         public static void LoopBegin()
         {
             Task.Run(() => Timers.Timer.ElapseTimer());
@@ -24,7 +25,7 @@ namespace Tetris.Tasks
                 DrawTetriminoOnBoard(RunningTetriminoInstance, Game.Board!);
                 JSON.CheckGameEnd();
                 Printer.Print(Game.Board!, true);
-                Delta.TimeDelta();
+                Delta.TimeDelta(); // Delta klassen bliver brugt til at tælle ned for rykning af tetrimino
                 if (Controller.HasCollided(RunningTetriminoInstance.Shape!, Game.Board!, 1, 0))
                 {
                     TetriminoManager.CycleComplete();
