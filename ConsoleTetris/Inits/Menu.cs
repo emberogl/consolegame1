@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Tetris.Console_;
 using Tetris.Events;
 
@@ -11,7 +10,7 @@ namespace Tetris.Inits
         public static char[] play = "[PLAY]".ToArray();
         public static char[] exit = "[EXIT]".ToArray();
         public static int SelectedButton { get; set; } = 0;
-        // Information der skal gemmes til harddisk
+        // Information der skal gemmes til harddisk V
         public static int LastScore { get; set; } = 0;
         public static int LastLines { get; set; } = 0;
         public static int HighScore { get; set; } = 0;
