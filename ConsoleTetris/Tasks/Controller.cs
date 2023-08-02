@@ -93,10 +93,6 @@ namespace Tetris.Tasks
                         Printer.Print(Game.Board!, printscore: true);
                         GameLoop.EraseTetriminoFromBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         GameLoop.RunningTetriminoInstance.Y += 1;
-                        if (IsOutOfBound(GameLoop.RunningTetriminoInstance.Shape!, Game.Board!))
-                        {
-                            GameLoop.RunningTetriminoInstance.Y -= 1;
-                        }
                         GameLoop.DrawTetriminoOnBoard(GameLoop.RunningTetriminoInstance, Game.Board!);
                         Printer.Print(Game.Board!, true);
                         _();

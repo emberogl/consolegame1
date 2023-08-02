@@ -25,7 +25,7 @@ namespace Tetris.Events
                             isRowFilled = false;
                             break;
                         }
-                        // Hvis [x, y] er ikke en Tetrimino
+                        // Hvis [y, x] er ikke en Tetrimino
                         if (Game.Board![row, col] != Game.TetriminoASCII)
                         {
                             isRowFilled = false;

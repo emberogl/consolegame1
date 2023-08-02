@@ -14,7 +14,6 @@
             X = x;
             Y = y;
         }
-
         public int GetFirstDimensionLength()
         {
             return Shape?.GetLength(0) ?? 0;
